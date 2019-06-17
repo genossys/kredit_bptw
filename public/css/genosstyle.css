@@ -1,12 +1,13 @@
 html,
 body {
     height: 100%;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Roboto", sans-serif;
+
     padding: 0;
     margin: 0;
 }
 
-.bodylogin{
+.bodylogin {
     background-color: rgba(0, 0, 0, 0.85);
     height: 100%;
     width: 100%;
@@ -15,8 +16,8 @@ body {
     background-position: 0, -100px;
 }
 
-.bodypolos{
-background-image: unset;
+.bodypolos {
+    background-image: unset;
 }
 
 nav.home {
@@ -77,9 +78,7 @@ ul.navbar-nav {
 }
 
 .bgtekshome {
-
 }
-
 
 .tekshome {
     width: 40%;
@@ -94,7 +93,6 @@ ul.navbar-nav {
     font-weight: 800;
     color: red;
     text-shadow: 3px 3px 5px black;
-
 }
 
 .isihome {
@@ -131,25 +129,17 @@ ul.navbar-nav {
     transform: translate(0, 0);
 }
 
-.produkkami{
+.produkkami {
     background-color: rgba(255, 255, 255, 0.85);
     padding-top: 30px;
     padding-bottom: 30px;
 }
-.newproduk {
-    padding-top: 30px;
-    padding-bottom: 30px;
-    background-color: red;
-    min-height: 400px;
 
-}
-
-.modalproduk{
+.modalproduk {
     background-color: red;
     border-radius: 10px;
     box-shadow: 3px 3px 5px black;
 }
-
 
 .gambarnew {
     height: 20vw;
@@ -169,17 +159,13 @@ ul.navbar-nav {
     margin-top: 40px;
 }
 
-.input-plus {
-    border-top-right-radius: 0px;
-    border-bottom-right-radius: 0px;
+.btn-detail {
+    margin-top: 20px;
+    border-radius: 15px;
     box-shadow: 3px 3px 5px grey;
+    width: 100%
 }
 
-.input-min {
-    border-top-left-radius: 0px;
-    border-bottom-left-radius: 0px;
-    box-shadow: 3px 3px 5px grey;
-}
 
 .judulsection {
     width: 300px;
@@ -192,50 +178,43 @@ ul.navbar-nav {
 .kartuproduk {
     padding: 10px;
     height: 320px;
-    border-radius: 10px;
-    background-color: red;
-    box-shadow: 3px 3px 5px grey;
+    background-color: #fefefe;
     overflow: hidden;
 }
 
 .kartuproduk img {
     width: 100%;
     height: 60%;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
     object-fit: cover;
     cursor: pointer;
 }
 
-.kartuproduk h3{
-    margin-top: 5px;
-        width: 100%;
-        text-align: center;
-        cursor: pointer;
+.kartuproduk h3 {
+    font-weight: 700;
+    font-size: 1em;
+    margin-top: 10px;
+    margin-bottom: 5px;
+
+    width: 100%;
+    cursor: pointer;
 }
 
 .kartuproduk h4 {
     width: 100%;
-}
-
-.kartuproduk h4 {
-    color: black;
+    color: #3490dc;
 }
 
 .tombolpesankecil {
-    width: 88%;
+    width: 100%;
     bottom: 0;
     margin-top: 0;
     margin-right: 10px;
-    position: absolute;
-
 }
 
 .paketkami {
     padding-top: 30px;
     padding-bottom: 30px;
     background-color: rgba(255, 215, 0, 0.85);
-
 }
 
 .footer {
@@ -270,26 +249,25 @@ ul.navbar-nav {
     bottom: 0px;
 }
 
-.namapaket{
+.namapaket {
     margin-top: 10px;
     color: red;
 }
 
 /* Modal Produk */
-.modalprodukdialog{
+.modalprodukdialog {
     background-color: rgba(0, 0, 0, 0);
     border: 0;
 }
-.modalprodukbody{
+.modalprodukbody {
     background-color: rgba(0, 0, 0, 0);
-
 }
 
 /* Utility */
-.btn-danger{
+.btn-danger {
     background-color: red;
 }
 
-.sidebar-dark-primary{
+.sidebar-dark-primary {
     background-color: rgba(100, 0, 0, 1);
 }

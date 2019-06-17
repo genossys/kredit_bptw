@@ -82,6 +82,15 @@ Data Rumah
                         <textarea class="form-control" rows="2" id="txtKetRumah" name="txtKetRumah"></textarea>
                     </div>
 
+                    <div class="form-group">
+                        <label id="labelGambarSnack">Gambar Snack </label>
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="fileGambarRumah" name="fileGambarRumah">
+                            <label class="custom-file-label" for="customFile">Pilih file</label>
+                        </div>
+
+                    </div>
+
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
@@ -93,7 +102,7 @@ Data Rumah
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>Longitude</label>
-                                <input type="number" class="form-control" placeholder="Harga" id="txtLng" name="txtLng">
+                                <input type="text" class="form-control" placeholder="Longitude" id="txtLng" name="txtLng">
                             </div>
                         </div>
                     </div>
@@ -111,25 +120,10 @@ Data Rumah
 
 @endsection
 
-@section('css')
-<link rel="stylesheet" href="{{ asset('/css/bootstrap-datepicker.min.css')}}">
-<link rel="stylesheet" href="{{ asset('/css/autotext.css')}}">
-@endsection
 
 
 @section('script')
 <script src="{{ asset('/js/tampilan/fileinput.js') }}"></script>
 <script src="{{ asset('/js/tampilan/changemodal.js') }}"></script>
-<script src="{{ asset('/js/bootstrap-datepicker.min.js') }}"></script>
-<script src="{{ asset('/js/tampilan/autotextidlelang.js') }}"></script>
-<script type="text/javascript">
-    $(function() {
-        $(".datepicker").datepicker({
-            format: 'yyyy-mm-dd',
-            autoclose: true,
-            todayHighlight: true,
-        });
-    });
-</script>
 
 @endsection

@@ -7,7 +7,7 @@
 
     <title>Kredit Bptw</title>
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700,900&display=swap" rel="stylesheet">
 
     <!-- Styles -->
     <!-- Font Awesome -->
@@ -36,7 +36,7 @@
                 </li>
 
                 <li class="nav-item ">
-                    <a class="nav-link" href="{{route('produk')}}">Product</a>
+                    <a class="nav-link" href="{{route('produk')}}">Perumahan</a>
                 </li>
 
                 <li class="nav-item ">

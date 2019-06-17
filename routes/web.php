@@ -51,3 +51,7 @@ Route::get('/bank', function () {
 });
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/produk', function () {
+    return view('/umum/produk');
+})->name('produk');
+
