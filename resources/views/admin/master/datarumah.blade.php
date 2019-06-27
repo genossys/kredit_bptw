@@ -72,39 +72,23 @@ Data Rumah
                     </div>
 
                     <div class="form-group">
-                        <label>Alamat </label>
-                        <input type="text" class="form-control" placeholder="Alamat" id="txtAlamat" name="txtAlamat">
+                        <label>Lokasi </label>
+                        <input type="text" class="form-control" placeholder="Lokasi" id="txtLokasi" name="txtLokasi">
                     </div>
 
 
                     <div class="form-group">
-                        <label id="labelKetRumah">Ket. Rumah </label>
+                        <label id="labelKetRumah">Deskripsi Rumah </label>
                         <textarea class="form-control" rows="2" id="txtKetRumah" name="txtKetRumah"></textarea>
                     </div>
 
                     <div class="form-group">
-                        <label id="labelGambarSnack">Gambar Snack </label>
+                        <label id="labelGambarRumah">Gambar Rumah </label>
                         <div class="custom-file">
                             <input type="file" class="custom-file-input" id="fileGambarRumah" name="fileGambarRumah">
                             <label class="custom-file-label" for="customFile">Pilih file</label>
                         </div>
 
-                    </div>
-
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>Latitude </label>
-                                <input type="text" class="form-control" placeholder="Nama" id="txtLat" name="txtLat">
-                            </div>
-                        </div>
-
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>Longitude</label>
-                                <input type="text" class="form-control" placeholder="Longitude" id="txtLng" name="txtLng">
-                            </div>
-                        </div>
                     </div>
 
                     <div class="text-right">

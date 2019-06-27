@@ -21,6 +21,7 @@ class ComposerStaticInit8e1cd94b1ae2080f2ab2a6768a13bee3
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
         '801c31d8ed748cfa537fa45402288c95' => __DIR__ . '/..' . '/psy/psysh/src/functions.php',
         '0d8253363903f0ac7b0978dcde4e28a0' => __DIR__ . '/..' . '/beyondcode/laravel-dump-server/helpers.php',
+        '48c267551274a550f0dff35308f70a47' => __DIR__ . '/../..' . '/app/helper/genoshelper.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -383,12 +384,19 @@ class ComposerStaticInit8e1cd94b1ae2080f2ab2a6768a13bee3
     public static $classMap = array (
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
+        'App\\Http\\Controllers\\AuthController' => __DIR__ . '/../..' . '/app/Http/Controllers/AuthController.php',
         'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
         'App\\Http\\Controllers\\Auth\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/LoginController.php',
         'App\\Http\\Controllers\\Auth\\RegisterController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/RegisterController.php',
         'App\\Http\\Controllers\\Auth\\ResetPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ResetPasswordController.php',
         'App\\Http\\Controllers\\Auth\\VerificationController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/VerificationController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
+        'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
+        'App\\Http\\Controllers\\Master\\kategoriController' => __DIR__ . '/../..' . '/app/Http/Controllers/Master/kategoriController.php',
+        'App\\Http\\Controllers\\Master\\memberController' => __DIR__ . '/../..' . '/app/Http/Controllers/Master/memberController.php',
+        'App\\Http\\Controllers\\Master\\productController' => __DIR__ . '/../..' . '/app/Http/Controllers/Master/productController.php',
+        'App\\Http\\Controllers\\Master\\satuanController' => __DIR__ . '/../..' . '/app/Http/Controllers/Master/satuanController.php',
+        'App\\Http\\Controllers\\Master\\userController' => __DIR__ . '/../..' . '/app/Http/Controllers/Master/userController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
         'App\\Http\\Middleware\\CheckForMaintenanceMode' => __DIR__ . '/../..' . '/app/Http/Middleware/CheckForMaintenanceMode.php',
@@ -397,6 +405,8 @@ class ComposerStaticInit8e1cd94b1ae2080f2ab2a6768a13bee3
         'App\\Http\\Middleware\\TrimStrings' => __DIR__ . '/../..' . '/app/Http/Middleware/TrimStrings.php',
         'App\\Http\\Middleware\\TrustProxies' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustProxies.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
+        'App\\Master\\informasiModel' => __DIR__ . '/../..' . '/app/Master/informasiModel.php',
+        'App\\Master\\pendaftarModel' => __DIR__ . '/../..' . '/app/Master/pendaftarModel.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',
         'App\\Providers\\BroadcastServiceProvider' => __DIR__ . '/../..' . '/app/Providers/BroadcastServiceProvider.php',

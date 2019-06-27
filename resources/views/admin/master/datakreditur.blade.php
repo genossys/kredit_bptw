@@ -47,10 +47,23 @@ Data Kreditur
                     <div class="alert alert-danger" style="display:none"></div>
                     <div class="alert alert-success" style="display:none"></div>
 
-                    <div class="form-group">
-                        <label>NIK </label>
-                        <input type="number" class="form-control" placeholder="Nomor Induk Kependudukan" id="txtNik" name="txtNik">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>NIK </label>
+                                <input type="number" class="form-control" placeholder="Nomor Induk Kependudukan" id="txtNik" name="txtNik">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Nama </label>
+                                <input type="number" class="form-control" placeholder="Nama" id="txtNama" name="txtNama">
+                            </div>
+                        </div>
                     </div>
+
+
+
 
                     <div class="form-group">
                         <label>Email </label>

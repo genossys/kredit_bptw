@@ -36,11 +36,11 @@
                 </li>
 
                 <li class="nav-item ">
-                    <a class="nav-link" href="{{route('produk')}}">Perumahan</a>
+                    <a class="nav-link" href="/produk">Perumahan</a>
                 </li>
 
                 <li class="nav-item ">
-                    <a class="nav-link" href="{{route('produk')}}">Kontak</a>
+                    <a class="nav-link" href="#">Kontak</a>
                 </li>
 
                 <li class="nav-item ">
