@@ -4,7 +4,7 @@ namespace App\Master;
 
 use Illuminate\Database\Eloquent\Model;
 
-class productModel extends Model
+class rumahModel extends Model
 {
     //
     protected $table = 'tb_rumah';

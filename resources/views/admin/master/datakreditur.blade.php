@@ -7,129 +7,39 @@ Data Kreditur
 @section('content')
 
 
+
 <!-- Button to Open the Modal -->
-<div>
-    <button id="tambahModal" style="margin-bottom: 10px; margin-top: 20px" type="button" class="btn btn-primary box-tools pull-right" data-toggle="modal" data-target="#modaltambahKreditur">
-        Tambah Data Kreditur
-    </button>
+<section class="mb-5">
+    <div class="pt-3">
+        <!-- <button id="btnTambah" type="button" class="btn btn-primary btn box-tools pull-left" data-toggle="modal" data-target="#modalTambahKreditur">
+            <i class="fa fa-plus-circle" aria-hidden="true"></i>
+        </button> -->
+        <div class="pull-right">
+            <input id="caridata" type="text" class="form-control" name='caridata' onkeyup="showData()" />
+        </div>
+        <label class="pull-right mt-2"> Cari &nbsp;</label>
+    </div>
 
-</div>
+</section>
 
-<div class="table-responsive-lg">
-    <table id="example2" class="table table-striped  table-bordered table-hover" cellspacing="0" width="100%">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>NIK</th>
-                <th>Email</th>
-                <th>Nama</th>
-                <th>No. Telp</th>
-                <th>Tanggal Lahir</th>
-                <th>Alamat</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-    </table>
+<div id="tabelDisini"></div>
+
 </div>
 
 <!--Srart Modal -->
-<div class="modal fade" id="modaltambahKreditur">
+<div class="modal fade" id="modalEditKreditur">
     <div class="modal-dialog modal-lg">
+
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Tambah Data Kreditur</h4>
+                <h6 class="modal-title">Data Kreditur</h6>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
 
-            <form action="" method="POST" id="formSimpanKreditur" class="form">
-                {{ csrf_field() }}
-                <div class="modal-body">
-                    <div class="alert alert-danger" style="display:none"></div>
-                    <div class="alert alert-success" style="display:none"></div>
+            <form method="post" id="editform" enctype="multipart/form-data">
+                <div class="modal-body" id="dataModalEdit">
 
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>NIK </label>
-                                <input type="number" class="form-control" placeholder="Nomor Induk Kependudukan" id="txtNik" name="txtNik">
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>Nama </label>
-                                <input type="number" class="form-control" placeholder="Nama" id="txtNama" name="txtNama">
-                            </div>
-                        </div>
-                    </div>
-
-
-
-
-                    <div class="form-group">
-                        <label>Email </label>
-                        <input type="email" class="form-control" placeholder="Nama" id="txtEmail" name="txtEmail">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Alamat </label>
-                        <input type="text" class="form-control" placeholder="Alamat" id="txtAlamat" name="txtAlamat">
-                    </div>
-
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>Tanggal Lahir</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">
-                                            <i class="fa fa-calendar"></i>
-                                        </span>
-                                    </div>
-                                    <input type="text" class="form-control float-right datepicker" name="dateTanggalLahir" id="dateTanggalLahir">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>No.Telp </label>
-                                <input type="text" class="form-control" placeholder="No. Telp" id="txtNoTelp" name="txtNoTelp">
-                            </div>
-                        </div>
-                    </div>
-
-
-
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label id="labelpassword">Password</label>
-                                <input type="password" class="form-control" placeholder="Password" id="txtPasswordUser" name="txtPasswordUser">
-                            </div>
-                        </div>
-
-
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label id="labelpassword">Konfirmasi Password</label>
-                                <input type="password" class="form-control" placeholder="Masukan Ulang Password" id="txtConPasswordUser" name="txtConPasswordUser">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label>File Foto</label>
-                        <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="fileFoto" name="fileFoto">
-                            <label class="custom-file-label" for="customFile">Pilih file</label>
-                        </div>
-                    </div>
-
-
-                    <div class="text-right">
-                        <button id="btnSimpan" class="btn btn-primary"></button>
-                    </div>
                 </div>
-
             </form>
         </div>
     </div>
@@ -139,24 +49,132 @@ Data Kreditur
 @endsection
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('/css/bootstrap-datepicker.min.css')}}">
-<link rel="stylesheet" href="{{ asset('/css/autotext.css')}}">
 @endsection
 
 
 @section('script')
 <script src="{{ asset('/js/tampilan/fileinput.js') }}"></script>
-<script src="{{ asset('/js/tampilan/changemodal.js') }}"></script>
-<script src="{{ asset('/js/bootstrap-datepicker.min.js') }}"></script>
-<script src="{{ asset('/js/tampilan/autotextidlelang.js') }}"></script>
-<script type="text/javascript">
-    $(function() {
-        $(".datepicker").datepicker({
-            format: 'yyyy-mm-dd',
-            autoclose: true,
-            todayHighlight: true,
+<script src="{{ asset('js/handlebars.js') }}"></script>
+
+<script>
+    function showData() {
+        var kreditur = $("#kreditur").val();
+        var caridata = $("#caridata").val();
+
+        $.ajax({
+            type: 'GET',
+            url: '/admin/kreditur/showKreditur',
+            data: {
+                kreditur: kreditur,
+                caridata: caridata,
+            },
+            success: function(response) {
+
+                $("#tabelDisini").html(response.html);
+            },
+            error: function(response) {
+                alert('gagal \n' + response.responseText);
+            }
+        });
+    }
+
+    $('#editform').on('submit', function(event) {
+        event.preventDefault();
+        $.ajax({
+            method: 'post',
+            url: '/admin/kreditur/editKreditur',
+            data: new FormData(this),
+            contentType: false,
+            cache: false,
+            processData: false,
+            success: function(data) {
+                $('#modalEditKreditur').modal('toggle');
+                Swal.fire({
+                    type: 'success',
+                    title: 'Kreditur berhasil di buat',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+                showData();
+            }
         });
     });
-</script>
 
+
+    function showModalEdit(idKreditur) {
+
+        $.ajax({
+            type: 'GET',
+            url: '/admin/kreditur/showEditKreditur',
+            data: {
+                id: idKreditur,
+            },
+            success: function(response) {
+
+                $("#dataModalEdit").html(response.html);
+            },
+            error: function(response) {
+                alert('gagal \n' + response.responseText);
+            }
+        });
+    }
+
+    function showModalDetail(idKreditur) {
+
+        $.ajax({
+            type: 'GET',
+            url: '/admin/kreditur/showDetailKreditur',
+            data: {
+                id: idKreditur,
+            },
+            success: function(response) {
+
+                $("#dataModalEdit").html(response.html);
+            },
+            error: function(response) {
+                alert('gagal \n' + response.responseText);
+            }
+        });
+    }
+
+
+    function deleteData(id) {
+        Swal.fire({
+            title: 'Anda yakin?',
+            text: "data ini akan di hapus!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, hapus saja!'
+        }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    type: 'DELETE',
+                    url: '/admin/kreditur/deleteData',
+                    data: {
+                        id: id,
+                    },
+                    success: function(response) {
+
+                        Swal.fire(
+                            'Deleted!',
+                            'Data berhasil di hapus',
+                            'success'
+                        )
+                        showData();
+                    },
+                    error: function(response) {
+                        alert('gagal \n' + response.responseText);
+                    }
+                });
+            }
+        })
+
+    }
+
+    $(window).on("load", function() {
+        showData();
+    });
+</script>
 @endsection

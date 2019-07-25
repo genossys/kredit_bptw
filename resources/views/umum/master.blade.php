@@ -36,15 +36,15 @@
                 </li>
 
                 <li class="nav-item ">
-                    <a class="nav-link" href="/produk">Perumahan</a>
+                    <a class="nav-link ml-5" href="/produk">Perumahan</a>
                 </li>
 
                 <li class="nav-item ">
-                    <a class="nav-link" href="#">Kontak</a>
+                    <a class="nav-link ml-5" href="#">Kontak</a>
                 </li>
 
                 <li class="nav-item ">
-                    <a class="nav-link" href="/login"> Login <i class="fa fa-user"></i></a>
+                    <a class="nav-link ml-5" href="/login"> Login <i class="fa fa-user"></i></a>
                 </li>
 
             </ul>
@@ -55,8 +55,19 @@
     @yield('footer')
 
     <!-- JS -->
+
+
     <script src="{{ asset('js/app.js') }}"></script>
+
     <script src="{{ asset('/js/jquery.min.js') }}"></script>
+
+    <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+    </script>
 
     @yield('script')
 

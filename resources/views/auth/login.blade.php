@@ -29,7 +29,7 @@ Form Login
                 <form method="post" action="/postlogin">
                     {{csrf_field()}}
                     <div class="form-group has-feedback ">
-                        <input type="text" class="form-control" name="username" placeholder="username atau email">
+                        <input type="text" class="form-control" name="email" placeholder="username atau email">
                         <span class="glyphicon glyphicon-user form-control-feedback"></span>
                     </div>
                     <div class="form-group has-feedback">

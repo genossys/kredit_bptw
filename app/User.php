@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable
 {
     use Notifiable;
+
     protected $table = 'tb_user';
 
     /**
@@ -17,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'user_id', 'password', 'hak_akses'
+        'nama', 'password', 'hakAkses', 'email'
     ];
 
     /**
@@ -35,4 +36,16 @@ class User extends Authenticatable
      * @var array
      */
 
+    public function hakAkses($hakakses)
+    {
+
+        $arr = explode('|', $hakakses);
+        foreach ($arr as $key) {
+            if ($this->hakAkses == $key) {
+                return true;
+                break;
+            }
+        }
+        return false;
+    }
 }

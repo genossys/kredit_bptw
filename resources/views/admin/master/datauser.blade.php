@@ -7,80 +7,74 @@ Data User
 @section('content')
 
 
+
 <!-- Button to Open the Modal -->
-<div>
-    <button id="tambahModal" style="margin-bottom: 10px; margin-top: 20px" type="button" class="btn btn-primary box-tools pull-right" data-toggle="modal" data-target="#modaltambahUser">
-        Tambah User
-    </button>
+<section class="mb-5">
+    <div class="pt-3">
+        <button id="btnTambah" type="button" class="btn btn-primary btn box-tools pull-left" data-toggle="modal" data-target="#modalTambahUser">
+            <i class="fa fa-plus-circle" aria-hidden="true"></i>
+        </button>
+        <div class="pull-right">
+            <input id="caridata" type="text" class="form-control" name='caridata' onkeyup="showData()" />
+        </div>
+        <label class="pull-right mt-2"> Cari &nbsp;</label>
+    </div>
 
-</div>
+</section>
 
-<div class="table-responsive-lg">
-    <table id="example2" class="table table-striped  table-bordered table-hover" cellspacing="0" width="100%">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>ID User</th>
-                <th>Password</th>
-                <th>Nama User</th>
-                <th>Alamat</th>
-                <th>No. Telp</th>
-                <th>Hak Akses</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-    </table>
+<div id="tabelDisini"></div>
+
 </div>
 
 <!--Srart Modal -->
-<div class="modal fade" id="modaltambahUser">
-    <div class="modal-dialog ">
+<div class="modal fade" id="modalTambahUser">
+    <div class="modal-dialog">
+
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Tambah Data user</h4>
+                <h6 class="modal-title">Data User</h6>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
 
-            <form action="" method="POST" id="formSimpanUser" class="form">
-                {{ csrf_field() }}
+            <form method="post" id="insertform" enctype="multipart/form-data">
                 <div class="modal-body">
                     <div class="alert alert-danger" style="display:none"></div>
                     <div class="alert alert-success" style="display:none"></div>
+                    <input type="hidden" id="oldkdUser" name="oldkdUser">
+                    <input value="{{auth()->user()->username}}" hidden id="user" name="user">
+                    <div class="form-group">
+                        <label>User Name </label>
+                        <input type="text" class="form-control" placeholder="nama" id="nama" name="nama">
+                    </div>
+                    <div class="form-group">
+                        <label>email</label>
+                        <input type="email" class="form-control" placeholder="Email" id="email" name="email">
+                    </div>
+
 
                     <div class="form-group">
-                        <label>ID User </label>
-                        <input type="text" class="form-control" placeholder="ID" id="txtIdUser" name="txtIdUser">
-                    </div>
+                        <label for="password">{{ __('Password') }}</label>
 
+                        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+
+                        @error('password')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
 
                     <div class="form-group">
-                        <label>Nama User </label>
-                        <input type="text" class="form-control" placeholder="Nama" id="txtNamaUser" name="txtNamaUser">
+                        <label for="password-confirm">{{ __('Confirm Password') }}</label>
+
+                        <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
                     </div>
-
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label id="labelpassword">Password</label>
-                                <input type="password" class="form-control" placeholder="Password" id="txtPasswordUser" name="txtPasswordUser">
-                            </div>
-                        </div>
-
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label id="labelpassword">Konfirmasi Password</label>
-                                <input type="password" class="form-control" placeholder="Masukan Ulang Password" id="txtConPasswordUser" name="txtConPasswordUser">
-                            </div>
-                        </div>
-                    </div>
-
-
 
                     <div class="text-right">
-                        <button id="btnSimpan" class="btn btn-primary"></button>
+                        <!-- <input id="btnSimpan" class="btn btn-primary" type="submit">Simpan <i id="iconbtn" class="fa fa-floppy-o" aria-hidden="true"></i></inp> -->
+                        <button name="btnSimpan" id="btnSimpan" class="btn btn-primary">Simpan</button>
                     </div>
                 </div>
-
             </form>
         </div>
     </div>
@@ -91,15 +85,12 @@ Data User
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('/css/bootstrap-datepicker.min.css')}}">
-<link rel="stylesheet" href="{{ asset('/css/autotext.css')}}">
 @endsection
 
 
 @section('script')
-<script src="{{ asset('js/tampilan/fileinput.js') }}"></script>
-<script src="{{ asset('js/tampilan/changemodal.js') }}"></script>
+<script src="{{ asset('/js/tampilan/fileinput.js') }}"></script>
 <script src="{{ asset('/js/bootstrap-datepicker.min.js') }}"></script>
-<script src="{{ asset('/js/tampilan/autotextidlelang.js') }}"></script>
 <script type="text/javascript">
     $(function() {
         $(".datepicker").datepicker({
@@ -109,5 +100,54 @@ Data User
         });
     });
 </script>
+<script src="{{ asset('js/handlebars.js') }}"></script>
 
+<script>
+    function showData() {
+        var user = $("#user").val();
+        var caridata = $("#caridata").val();
+
+        $.ajax({
+            type: 'GET',
+            url: '/admin/user/showUser',
+            data: {
+                user: user,
+                caridata: caridata,
+            },
+            success: function(response) {
+
+                $("#tabelDisini").html(response.html);
+            },
+            error: function(response) {
+                alert('gagal \n' + response.responseText);
+            }
+        });
+    }
+
+    $('#insertform').on('submit', function(event) {
+        event.preventDefault();
+        $.ajax({
+            method: 'post',
+            url: '/admin/user/insertUser',
+            data: new FormData(this),
+            contentType: false,
+            cache: false,
+            processData: false,
+            success: function(data) {
+                $('#modalTambahUser').modal('toggle');
+                Swal.fire({
+                    type: 'success',
+                    title: 'User berhasil di buat',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+                showData();
+            }
+        });
+    });
+
+    $(window).on("load", function() {
+        showData();
+    });
+</script>
 @endsection

@@ -33,22 +33,22 @@
 
         <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
             <ul class="navbar-nav mr-auto mt-2 mt-sms-0  ">
-                <li class="nav-item ">
+                <li class="nav-item mr-5">
                     <a id="home" class="nav-link" href="/">Home </a>
                 </li>
 
-                <li class="nav-item ">
+                <li class="nav-item mr-5 ">
                     <a class="nav-link" href="/produk">Produk</a>
                 </li>
 
-                <li class="nav-item ">
+                <li class="nav-item mr-5">
                     <a class="nav-link" href="#">Kontak</a>
                 </li>
 
                 @if (auth()->check())
 
                 @if (auth()->user()->hakAkses == 'admin' || auth()->user()->hakAkses == 'pimpinan')
-                <li class="nav-item ">
+                <li class="nav-item mr-5">
                     <a class="nav-link" href="{{route('admin')}}">Dashboard</a>
                 </li>
                 @endif
@@ -65,7 +65,7 @@
                     </div>
                 </li>
                 @else
-                <li class="nav-item ">
+                <li class="nav-item mr-5">
                     <a class="nav-link" href="/login">
                         Login
                         <i class="fa fa-user"></i>

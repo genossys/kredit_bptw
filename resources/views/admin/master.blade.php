@@ -22,7 +22,8 @@
     <link rel="stylesheet" href=" {{ asset('/adminlte/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css')}}">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-
+    <link href="{{ asset('/css/sweetalert2.min.css') }}" rel="stylesheet">
+    <script src="{{ asset('/js/sweetalert2.min.js') }}"></script>
     @yield('css')
 </head>
 
@@ -94,28 +95,28 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{route ('rumah')}}" class="nav-link ">
+                                    <a href="{{route ('pagerumah')}}" class="nav-link ">
                                         <i class="fa fa-circle-o nav-icon"></i>
                                         <p>Data Rumah</p>
                                     </a>
                                 </li>
 
                                 <li class="nav-item">
-                                    <a href="{{route ('kreditur')}}" class="nav-link ">
+                                    <a href="{{route ('pagekreditur')}}" class="nav-link ">
                                         <i class="fa fa-circle-o nav-icon"></i>
                                         <p>Data Kreditur</p>
                                     </a>
                                 </li>
 
                                 <li class="nav-item">
-                                    <a href="{{route ('bank')}}" class="nav-link ">
+                                    <a href="{{route ('pagebank')}}" class="nav-link ">
                                         <i class="fa fa-circle-o nav-icon"></i>
                                         <p>Data Bank</p>
                                     </a>
                                 </li>
 
                                 <li class="nav-item ">
-                                    <a href="{{route ('user')}}" class="nav-link">
+                                    <a href="{{route ('pageuser')}}" class="nav-link">
                                         <i class="fa fa-circle-o nav-icon"></i>
                                         <p>Data User</p>
                                     </a>
@@ -198,10 +199,7 @@
     <script src="{{ asset ('/adminlte/plugins/jquery/jquery.min.js')}}"></script>
     <!-- jQuery UI 1.11.4 -->
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-    <script>
-        $.widget.bridge('uibutton', $.ui.button)
-    </script>
+
     <!-- Bootstrap 4 -->
     <script src=" {{asset ('/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
     <!-- Bootstrap WYSIHTML5 -->
@@ -212,6 +210,15 @@
     <script src=" {{asset ('/adminlte/plugins/fastclick/fastclick.js')}}"></script>
     <!-- AdminLTE App -->
     <script src="{{asset ('/adminlte/js/adminlte.js')}}"></script>
+
+    <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+    </script>
+
 
     @yield('script')
 </body>

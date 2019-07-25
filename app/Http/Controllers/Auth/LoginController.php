@@ -6,6 +6,7 @@ use Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Symfony\Component\HttpFoundation\Request;
+use App\User;
 
 class LoginController extends Controller
 {
@@ -53,16 +54,22 @@ class LoginController extends Controller
 
     function postlogin(Request $request)
     {
-        $login_type = filter_var($request->input('username'), FILTER_VALIDATE_EMAIL)
-            ? 'email'
-            : 'username';
+        $login_type = 'email';
 
         $request->merge([
-            $login_type => $request->input('username')
+            $login_type => $request->input('email')
         ]);
 
-        if (Auth::attempt($request->only( $login_type, 'password'))) {
-            return redirect('/');
+        if (Auth::attempt($request->only( $login_type , 'password'))) {
+            $hakAkses = User::where('email',$request->input('email'))->first();
+            if($hakAkses->hakAkses == 'admin'){
+                return redirect('/admin');
+            }else if($hakAkses->hakAkses == 'pimpinan'){
+                return redirect('/bank');
+            }else{
+                return redirect('/');
+            }
+
         } else {
             return redirect()->back()->with('gagal', 'user id/password salah');
         }

@@ -7,93 +7,119 @@ Data Bank
 @section('content')
 
 
+
 <!-- Button to Open the Modal -->
-<div>
-    <button id="tambahModal" style="margin-bottom: 10px; margin-top: 20px" type="button" class="btn btn-primary box-tools pull-right" data-toggle="modal" data-target="#modaltambahBank">
-        Tambah Data Bank
-    </button>
+<section class="mb-5">
+    <div class="pt-3">
+        <button id="btnTambah" type="button" class="btn btn-primary btn box-tools pull-left" data-toggle="modal" data-target="#modalTambahBank">
+            <i class="fa fa-plus-circle" aria-hidden="true"></i>
+        </button>
+        <div class="pull-right">
+            <input id="caridata" type="text" class="form-control" name='caridata' onkeyup="showData()" />
+        </div>
+        <label class="pull-right mt-2"> Cari &nbsp;</label>
+    </div>
 
-</div>
+</section>
 
-<div class="table-responsive-lg">
-    <table id="example2" class="table table-striped  table-bordered table-hover" cellspacing="0" width="100%">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>ID Bank</th>
-                <th>Nama Bank</th>
-                <th>Alamat</th>
-                <th>Tgl. Lahir</th>
-                <th>Contact Person</th>
-                <th>No. Telp</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-    </table>
+<div id="tabelDisini"></div>
+
 </div>
 
 <!--Srart Modal -->
-<div class="modal fade" id="modaltambahBank">
-    <div class="modal-dialog ">
+<div class="modal fade" id="modalTambahBank">
+    <div class="modal-dialog modal-lg">
+
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Tambah Data Bank</h4>
+                <h6 class="modal-title">Data Bank</h6>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
 
-            <form action="" method="POST" id="formSimpanBank" class="form">
-                {{ csrf_field() }}
+            <form method="post" id="insertform">
                 <div class="modal-body">
                     <div class="alert alert-danger" style="display:none"></div>
                     <div class="alert alert-success" style="display:none"></div>
 
-                    <div class="form-group">
-                        <label>ID Bank </label>
-                        <input type="text" class="form-control" placeholder="ID" id="txtIdBank" name="txtIdBank">
-                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input type="email" class="form-control" placeholder="Email Bank" id="email" name="email">
+                            </div>
+                        </div>
 
-                    <div class="form-group">
-                        <label>Nama Bank </label>
-                        <input type="text" class="form-control" placeholder="Nama" id="txtNamaBank" name="txtNamaBank">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Alamat </label>
-                        <input type="text" class="form-control" placeholder="Alamat" id="txtAlamatBank" name="txtAlamatBank">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Contact Person </label>
-                        <input type="text" class="form-control" placeholder="Contact Person" id="txtContactPerson" name="txtContactPerson">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Nama Bank</label>
+                                <input type="text" class="form-control" placeholder="Nama Bank" id="nama" name="nama">
+                            </div>
+                        </div>
                     </div>
 
 
+
                     <div class="form-group">
-                        <label>No. Telp </label>
-                        <input type="text" class="form-control" placeholder="No. Telp" id="txtNoTelp" name="txtNoTelp">
+                        <label>Alamat</label>
+                        <input type="text" class="form-control" placeholder="Alamat" id="alamat" name="alamat">
                     </div>
 
                     <div class="row">
-                        <div class="col-sm-6">
+                        <div class="col-md-6">
                             <div class="form-group">
-                                <label id="labelpassword">Password</label>
-                                <input type="password" class="form-control" placeholder="Password" id="txtPasswordUser" name="txtPasswordUser">
+                                <label>Contact</label>
+                                <input type="text" class="form-control" placeholder="Nama Contact" id="contact" name="contact">
                             </div>
                         </div>
 
-                        <div class="col-sm-6">
+                        <div class="col-md-6">
                             <div class="form-group">
-                                <label id="labelpassword">Konfirmasi Password</label>
-                                <input type="password" class="form-control" placeholder="Masukan Ulang Password" id="txtConPasswordUser" name="txtConPasswordUser">
+                                <label>Nomor Telp Bank</label>
+                                <input type="text" class="form-control" placeholder="Telp. Bank" id="nohp" name="nohp">
                             </div>
                         </div>
                     </div>
 
-                    <div class="text-right">
-                        <button id="btnSimpan" class="btn btn-primary"></button>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Password</label>
+                                <input type="password" class="form-control" placeholder="Password" id="password" name="password">
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Confirm Password</label>
+                                <input type="password" class="form-control" placeholder="Nama Bank" id="confirm-password" name="confirm-password">
+                            </div>
+                        </div>
                     </div>
+
+
+                    <!-- <input id="btnSimpan" class="btn btn-primary" type="submit">Simpan <i id="iconbtn" class="fa fa-floppy-o" aria-hidden="true"></i></inp> -->
+                    <button name="btnSimpan" id="btnSimpan" class="btn btn-primary">Simpan</button>
                 </div>
+        </div>
+        </form>
+    </div>
+</div>
+<!-- EndModal -->
 
+<!--Srart Modal -->
+<div class="modal fade" id="modalEditBank">
+    <div class="modal-dialog modal-lg">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title">Data Bank</h6>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <form method="post" id="editform">
+                <div class="modal-body" id="dataModalEdit">
+
+                </div>
             </form>
         </div>
     </div>
@@ -103,24 +129,136 @@ Data Bank
 @endsection
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('/css/bootstrap-datepicker.min.css')}}">
-<link rel="stylesheet" href="{{ asset('/css/autotext.css')}}">
 @endsection
 
 
 @section('script')
 <script src="{{ asset('/js/tampilan/fileinput.js') }}"></script>
-<script src="{{ asset('/js/tampilan/changemodal.js') }}"></script>
-<script src="{{ asset('/js/bootstrap-datepicker.min.js') }}"></script>
-<script src="{{ asset('/js/tampilan/autotextidlelang.js') }}"></script>
-<script type="text/javascript">
-    $(function() {
-        $(".datepicker").datepicker({
-            format: 'yyyy-mm-dd',
-            autoclose: true,
-            todayHighlight: true,
+<script src="{{ asset('js/handlebars.js') }}"></script>
+
+<script>
+    function showData() {
+        var bank = $("#bank").val();
+        var caridata = $("#caridata").val();
+
+        $.ajax({
+            type: 'GET',
+            url: '/admin/bank/showBank',
+            data: {
+                bank: bank,
+                caridata: caridata,
+            },
+            success: function(response) {
+
+                $("#tabelDisini").html(response.html);
+            },
+            error: function(response) {
+                alert('gagal \n' + response.responseText);
+            }
+        });
+    }
+
+    $('#insertform').on('submit', function(event) {
+        event.preventDefault();
+        $.ajax({
+            method: 'post',
+            url: '/admin/bank/insertBank',
+            data: new FormData(this),
+            contentType: false,
+            cache: false,
+            processData: false,
+            success: function(data) {
+                $('#modalTambahBank').modal('toggle');
+                Swal.fire({
+                    type: 'success',
+                    title: 'Bank berhasil di buat',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+                showData();
+            }
         });
     });
-</script>
 
+    $('#editform').on('submit', function(event) {
+        event.preventDefault();
+        $.ajax({
+            method: 'post',
+            url: '/admin/bank/editBank',
+            data: new FormData(this),
+            contentType: false,
+            cache: false,
+            processData: false,
+            success: function(data) {
+                $('#modalEditBank').modal('toggle');
+                Swal.fire({
+                    type: 'success',
+                    title: 'Bank berhasil di buat',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+                showData();
+            }
+        });
+    });
+
+
+    function showModalEdit(idBank) {
+
+        $.ajax({
+            type: 'GET',
+            url: '/admin/bank/showEditBank',
+            data: {
+                id: idBank,
+            },
+            success: function(response) {
+
+                $("#dataModalEdit").html(response.html);
+            },
+            error: function(response) {
+                alert('gagal \n' + response.responseText);
+            }
+        });
+    }
+
+
+    function deleteData(id) {
+        Swal.fire({
+            title: 'Anda yakin?',
+            text: "data ini akan di hapus!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, hapus saja!'
+        }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    type: 'DELETE',
+                    url: '/admin/bank/deleteData',
+                    data: {
+                        id: id,
+                    },
+                    success: function(response) {
+
+                        Swal.fire(
+                            'Deleted!',
+                            'Data berhasil di hapus',
+                            'success'
+                        )
+                        showData();
+                    },
+                    error: function(response) {
+                        alert('gagal \n' + response.responseText);
+                    }
+                });
+            }
+        })
+
+    }
+
+    $(window).on("load", function() {
+        showData();
+    });
+</script>
 @endsection
