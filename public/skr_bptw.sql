@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 25, 2019 at 10:05 PM
+-- Generation Time: Aug 19, 2019 at 08:43 PM
 -- Server version: 10.1.37-MariaDB
 -- PHP Version: 7.2.12
 
@@ -25,42 +25,35 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `migrations`
---
-
-CREATE TABLE `migrations` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `batch` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `migrations`
---
-
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
-(1, '2019_06_17_072130_tb_master', 1),
-(2, '2019_06_17_082914_tb_transaksi', 1),
-(3, '2019_06_17_153147_relasi_transaksi', 1),
-(4, '2019_06_18_191317_triger_user', 1),
-(5, '2019_06_18_201745_add_url_foto', 1);
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `tb_angsuran`
 --
 
 CREATE TABLE `tb_angsuran` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `kode_angsuran` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `kode_proses` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `tanggal` date NOT NULL,
-  `angsuran` bigint(20) NOT NULL DEFAULT '0',
-  `denda` bigint(20) NOT NULL DEFAULT '0',
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `idAngsuran` int(11) NOT NULL,
+  `noKontrak` varchar(50) NOT NULL,
+  `idKreditur` int(11) NOT NULL,
+  `jatuhTempo` date NOT NULL,
+  `statusBayar` enum('belum','sudah') NOT NULL DEFAULT 'belum',
+  `tanggalPembayaran` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tb_angsuran`
+--
+
+INSERT INTO `tb_angsuran` (`idAngsuran`, `noKontrak`, `idKreditur`, `jatuhTempo`, `statusBayar`, `tanggalPembayaran`) VALUES
+(1, '12345', 4, '2019-08-19', 'sudah', '2019-08-19'),
+(2, '12345', 4, '2019-09-19', 'sudah', '2019-08-19'),
+(3, '12345', 4, '2019-10-19', 'sudah', '2019-08-19'),
+(4, '12345', 4, '2019-11-19', 'sudah', '2019-08-19'),
+(5, '12345', 4, '2019-12-19', 'sudah', '2019-08-19'),
+(6, '12345', 4, '2020-01-19', 'sudah', '2019-08-19'),
+(7, '12345', 4, '2020-02-19', 'sudah', '2019-08-19'),
+(8, '12345', 4, '2020-03-19', 'belum', NULL),
+(9, '12345', 4, '2020-04-19', 'belum', NULL),
+(10, '12345', 4, '2020-05-19', 'belum', NULL),
+(11, '12345', 4, '2020-06-19', 'belum', NULL),
+(12, '12345', 4, '2020-07-19', 'belum', NULL);
 
 -- --------------------------------------------------------
 
@@ -85,7 +78,8 @@ CREATE TABLE `tb_bank` (
 --
 
 INSERT INTO `tb_bank` (`id`, `email`, `nama`, `alamat`, `contact`, `nohp`, `password`, `created_at`, `updated_at`) VALUES
-(1, 'bigger.adv@gmail.com', 'mandiri', 'cilacap', 'aini2', '219388', '$2y$10$i5zXs7zVGro3DakIJJcStuVwC1Iaz9h9/E2Jx8Bb0aqeZyjwOjMCS', '2019-07-21 09:09:09', '2019-07-21 09:31:00');
+(1, 'bigger.adv@gmail.com', 'mandiri', 'cilacap', 'aini2', '219388', '$2y$10$i5zXs7zVGro3DakIJJcStuVwC1Iaz9h9/E2Jx8Bb0aqeZyjwOjMCS', '2019-07-21 09:09:09', '2019-07-21 09:31:00'),
+(2, 'bca@gmail.com', 'BCA cb cilacap', 'Cilacap', 'bca', '0271938122', '$2y$10$M7dzaZL1Tzrss5lXFvjy6eZ2oVWNsw4t/RRkm0XZL12/VqgNh.2VC', '2019-08-19 03:19:57', '2019-08-19 03:19:57');
 
 --
 -- Triggers `tb_bank`
@@ -98,7 +92,7 @@ $$
 DELIMITER ;
 DELIMITER $$
 CREATE TRIGGER `BIbank` BEFORE INSERT ON `tb_bank` FOR EACH ROW BEGIN
-                    INSERT INTO `tb_user` (`email`,  `nama`,`password` , `hakAkses` , `created_at`, `updated_at`) VALUES (NEW.email,  NEW.nama, NEW.password, 'kreditur' , NEW.created_at, NEW.updated_at);
+                    INSERT INTO `tb_user` (`email`,  `nama`,`password` , `hakAkses` , `created_at`, `updated_at`) VALUES (NEW.email,  NEW.nama, NEW.password, 'bank' , NEW.created_at, NEW.updated_at);
                 END
 $$
 DELIMITER ;
@@ -115,11 +109,19 @@ CREATE TABLE `tb_kredit` (
   `idKreditur` int(11) NOT NULL,
   `idRumah` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `idBank` int(11) NOT NULL,
-  `dp` int(11) NOT NULL,
-  `angsuran` int(11) NOT NULL,
+  `tanggal` date NOT NULL,
+  `dp` bigint(20) NOT NULL,
+  `angsuran` bigint(20) NOT NULL,
   `top` int(11) NOT NULL,
   `status` enum('proses','diterima','ditolak') NOT NULL DEFAULT 'proses'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tb_kredit`
+--
+
+INSERT INTO `tb_kredit` (`id`, `noKontrak`, `idKreditur`, `idRumah`, `idBank`, `tanggal`, `dp`, `angsuran`, `top`, `status`) VALUES
+(1, '12345', 4, 'Rumah001', 2, '2019-08-14', 120000000, 40000000, 12, 'diterima');
 
 -- --------------------------------------------------------
 
@@ -187,14 +189,8 @@ CREATE TABLE `tb_rumah` (
 --
 
 INSERT INTO `tb_rumah` (`idRumah`, `namaRumah`, `hargaJual`, `lokasi`, `deskripsi`, `urlFoto`, `created_at`, `updated_at`) VALUES
-('1', 'Perumahan 36/50', 250000000, 'Jl. bla bla bla', 'bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla', '873.png', NULL, '2019-07-21 11:42:11'),
-('ad', 'asd', 123, 'asd', 'asd', '', '2019-07-21 10:58:54', '2019-07-21 10:58:54'),
-('asdad', 'asdad', 12341, 'asd adsadad', 'asdasd', '895.jpg', '2019-07-21 11:08:00', '2019-07-21 11:44:27'),
-('asdsadasd', 'iuasd', 2198309, 'sndaiusn', 'iundsiaund', '', '2019-07-21 11:36:52', '2019-07-21 11:36:52'),
-('asdsadasdsad', 'asdsadsad', 231321, 'asdad', 'asdasd', '272.jpg', '2019-07-21 11:39:01', '2019-07-21 11:46:15'),
-('nasd', 'iuasd', 2198309, 'sndaiusn', 'iundsiaund', '', '2019-07-21 11:36:39', '2019-07-21 11:36:39'),
-('rumah0303', 'Perumahan Indah', 300000, 'solo', 'perumahan elite dengan type 50/90', '', '2019-07-21 10:55:38', '2019-07-21 10:55:38'),
-('vfr', 'vrfvr', 34234, 'bgt', 'gbtbt', '', '2019-07-21 11:19:21', '2019-07-21 11:19:21');
+('Rumah001', 'Rumah Elegan', 600000000, 'Solo', '* Luas 105m\r\n* 2 Kamar Tidur kt 2\r\n* km/wc\r\n* bonus ac\r\n* posisi hook\r\n* Dekat masjid\r\n* Dekat pom bensin\r\n* Dekat klinik kesehatan\r\n* Lokasi utara masjid Al Aqso Gentan', '648.jpg', '2019-08-09 09:55:09', '2019-08-09 09:55:09'),
+('Rumah002', 'Rumah Mewah', 12000000000, 'Solo', '* Luas 1020m\r\n* 4 Kamar Tidur kt \r\n* km/wc\r\n* bonus ac\r\n* posisi hook\r\n* Dekat masjid\r\n* Dekat pom bensin\r\n* Dekat klinik kesehatan\r\n* Lokasi utara masjid Al Aqso Gentan', '438.jpg', '2019-08-09 09:58:30', '2019-08-09 09:58:30');
 
 -- --------------------------------------------------------
 
@@ -222,27 +218,21 @@ INSERT INTO `tb_user` (`id`, `email`, `nama`, `password`, `hakAkses`, `created_a
 (6, 'asd@gmail.com', 'asd', '$2y$10$8NkLXGfsN12cNkYaWn.0w.QAk1plr0jIi7lEuWAyGbFEdGhEieYUm', 'admin', '2019-07-19 12:53:27', '2019-07-19 12:53:27'),
 (7, 'aaaa@aaa', 'aaa', '$2y$10$VNWj2iyrBydvLwAgsFNXXO26YDhXV1dhM/tkLBdycozllEAg.HzIO', 'admin', '2019-07-19 12:54:03', '2019-07-19 12:54:03'),
 (8, 'eeee@eee', 'eeee', '$2y$10$w4YJyVvaQrsA./NCjmzWle6B27F4xvkDz29z9diuBf1/UJcN5u6va', 'admin', '2019-07-19 12:54:54', '2019-07-19 12:54:54'),
-(9, 'bigger.adv@gmail.com', 'mandiri', '$2y$10$i5zXs7zVGro3DakIJJcStuVwC1Iaz9h9/E2Jx8Bb0aqeZyjwOjMCS', 'kreditur', '2019-07-21 09:09:09', '2019-07-21 09:09:09'),
-(11, 'aini@gmail.com', 'aini', '$2y$10$6l9h1NPfa7DVrSCsDWU05ufu6TO8TczOQ0CDQ7urNPs6isrzrfml2', 'kreditur', '2019-07-21 10:27:53', '2019-07-21 10:27:53');
+(9, 'bigger.adv@gmail.com', 'mandiri', '$2y$10$i5zXs7zVGro3DakIJJcStuVwC1Iaz9h9/E2Jx8Bb0aqeZyjwOjMCS', 'bank', '2019-07-21 09:09:09', '2019-07-21 09:09:09'),
+(11, 'aini@gmail.com', 'aini', '$2y$10$6l9h1NPfa7DVrSCsDWU05ufu6TO8TczOQ0CDQ7urNPs6isrzrfml2', 'kreditur', '2019-07-21 10:27:53', '2019-07-21 10:27:53'),
+(12, 'bca@gmail.com', 'BCA cb cilacap', '$2y$10$M7dzaZL1Tzrss5lXFvjy6eZ2oVWNsw4t/RRkm0XZL12/VqgNh.2VC', 'bank', '2019-08-19 03:19:57', '2019-08-19 03:19:57');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `migrations`
---
-ALTER TABLE `migrations`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `tb_angsuran`
 --
 ALTER TABLE `tb_angsuran`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `tb_angsuran_kode_angsuran_unique` (`kode_angsuran`),
-  ADD UNIQUE KEY `tb_angsuran_kode_proses_unique` (`kode_proses`),
-  ADD KEY `tb_angsuran_id_index` (`id`);
+  ADD PRIMARY KEY (`idAngsuran`),
+  ADD KEY `idKreditur` (`idKreditur`),
+  ADD KEY `noKontrak` (`noKontrak`);
 
 --
 -- Indexes for table `tb_bank`
@@ -255,9 +245,11 @@ ALTER TABLE `tb_bank`
 -- Indexes for table `tb_kredit`
 --
 ALTER TABLE `tb_kredit`
+  ADD PRIMARY KEY (`id`),
   ADD KEY `idBank` (`idBank`),
   ADD KEY `idKreditur` (`idKreditur`),
-  ADD KEY `idRumah` (`idRumah`);
+  ADD KEY `idRumah` (`idRumah`),
+  ADD KEY `noKontrak` (`noKontrak`);
 
 --
 -- Indexes for table `tb_kreditur`
@@ -285,22 +277,22 @@ ALTER TABLE `tb_user`
 --
 
 --
--- AUTO_INCREMENT for table `migrations`
---
-ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
 -- AUTO_INCREMENT for table `tb_angsuran`
 --
 ALTER TABLE `tb_angsuran`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `idAngsuran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `tb_bank`
 --
 ALTER TABLE `tb_bank`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `tb_kredit`
+--
+ALTER TABLE `tb_kredit`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tb_kreditur`
@@ -312,7 +304,7 @@ ALTER TABLE `tb_kreditur`
 -- AUTO_INCREMENT for table `tb_user`
 --
 ALTER TABLE `tb_user`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- Constraints for dumped tables
@@ -322,7 +314,8 @@ ALTER TABLE `tb_user`
 -- Constraints for table `tb_angsuran`
 --
 ALTER TABLE `tb_angsuran`
-  ADD CONSTRAINT `kode_proses_ifk` FOREIGN KEY (`kode_proses`) REFERENCES `tb_proseskredit` (`kode_proses`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `tb_angsuran_ibfk_1` FOREIGN KEY (`idKreditur`) REFERENCES `tb_kreditur` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `tb_angsuran_ibfk_2` FOREIGN KEY (`noKontrak`) REFERENCES `tb_kredit` (`noKontrak`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `tb_kredit`
