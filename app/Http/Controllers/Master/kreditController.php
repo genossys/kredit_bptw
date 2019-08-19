@@ -30,6 +30,11 @@ class kreditController extends Controller
         return view('admin.transaksi.datakredit');
     }
 
+    public function laporanKredit()
+    {
+        return view('admin.laporan.laporankredit');
+    }
+
     public function historyTransaksi()
     {
         $email = auth()->user()->email;
@@ -129,7 +134,39 @@ class kreditController extends Controller
             return response()->json(array('success' => true, 'html' => $returnHTML));
         }
     }
+    public function showAdminLaporanKredit(Request $request)
+    {
+        $daritanggal = $request->daritanggal;
+        $ketanggal = $request->ketanggal;
 
+        $kredit = kreditModel::select(
+            'tb_bank.nama as namaBank',
+            'tb_rumah.namaRumah as namaRumah',
+            'tb_kreditur.nama as namaKreditur',
+            'tb_kredit.noKontrak as noKontrak',
+            'tb_kredit.tanggal as tanggal',
+            'tb_kredit.dp as dp',
+            'tb_kredit.id as id',
+            'tb_kredit.angsuran as angsuran',
+            'tb_kredit.top as top',
+            'tb_kredit.status as status'
+        )
+            ->join('tb_bank', 'tb_kredit.idBank', 'tb_bank.id')
+            ->join('tb_rumah', 'tb_kredit.idRumah', 'tb_rumah.idRumah')
+            ->join('tb_kreditur', 'tb_kredit.idKreditur', 'tb_kreditur.id')
+            ->whereBetween('tb_kredit.tanggal', [$daritanggal, $ketanggal])
+            ->get();
+
+        $contoh = $kredit->first();
+
+        if ($contoh != null) {
+            $returnHTML = view('isidata.tabelAdminLaporanKredit')->with('kredit', $kredit)->render();
+            return response()->json(array('success' => true, 'html' => $returnHTML));
+        } else {
+            $returnHTML = view('isidata.datakosong')->with('kosong', 'Data Kredit akan Tampil di sini ')->render();
+            return response()->json(array('success' => true, 'html' => $returnHTML));
+        }
+    }
 
     public function showEditKredit(Request $request)
     {

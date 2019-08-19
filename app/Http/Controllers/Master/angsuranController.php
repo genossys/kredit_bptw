@@ -30,6 +30,11 @@ class angsuranController extends Controller
         return view('bank.transaksi.dataangsuran');
     }
 
+    public function laporanAngsuran()
+    {
+        return view('admin.laporan.laporanangsuran');
+    }
+
     public function showFormRegistrasi()
     {
         $this->middleware('guest');
@@ -108,6 +113,45 @@ class angsuranController extends Controller
 
         if ($contoh != null) {
             $returnHTML = view('isidata.tabelAngsuranBank')->with('angsuran', $angsuran)->render();
+            return response()->json(array('success' => true, 'html' => $returnHTML));
+        } else {
+            $returnHTML = view('isidata.datakosong')->with('kosong', 'Data Angsuran akan Tampil di sini ')->render();
+            return response()->json(array('success' => true, 'html' => $returnHTML));
+        }
+    }
+
+
+    public function showAdminLaporanAngsuran(Request $request)
+    {
+        $daritanggal = $request->daritanggal;
+        $ketanggal = $request->ketanggal;
+        $angsuran = angsuranModel::join('tb_kredit', 'tb_angsuran.noKontrak', 'tb_kredit.noKontrak')
+            ->join('tb_kreditur', 'tb_angsuran.idKreditur', 'tb_kreditur.id')
+            ->whereBetween('tb_angsuran.tanggalPembayaran', [$daritanggal, $ketanggal])
+            ->orderby('jatuhTempo', 'asc')
+            ->get();
+        $contoh = $angsuran->first();
+
+        if ($contoh != null) {
+            $returnHTML = view('isidata.tabelAdminLaporanAngsuran')->with('angsuran', $angsuran)->render();
+            return response()->json(array('success' => true, 'html' => $returnHTML));
+        } else {
+            $returnHTML = view('isidata.datakosong')->with('kosong', 'Data Angsuran akan Tampil di sini ')->render();
+            return response()->json(array('success' => true, 'html' => $returnHTML));
+        }
+    }
+    public function showAngsuranKreditur(Request $request)
+    {
+        $noKontrak = $request->noKontrak;
+        $angsuran = angsuranModel::join('tb_kredit', 'tb_angsuran.noKontrak', 'tb_kredit.noKontrak')
+            ->join('tb_kreditur', 'tb_angsuran.idKreditur', 'tb_kreditur.id')
+            ->where('tb_kredit.noKontrak', $noKontrak)
+            ->orderby('jatuhTempo', 'asc')
+            ->get();
+        $contoh = $angsuran->first();
+
+        if ($contoh != null) {
+            $returnHTML = view('isidata.tabelAngsuranKreditur')->with('angsuran', $angsuran)->render();
             return response()->json(array('success' => true, 'html' => $returnHTML));
         } else {
             $returnHTML = view('isidata.datakosong')->with('kosong', 'Data Angsuran akan Tampil di sini ')->render();

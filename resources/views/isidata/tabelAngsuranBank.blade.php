@@ -8,6 +8,7 @@
                 <th>angsuran</th>
                 <th>Jatuh Tempo</th>
                 <th>status</th>
+                <th>Tanggal</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -32,8 +33,9 @@
                 <td class='text-success'>{{$u->statusBayar}}</td>
                 @php $next=1; @endphp
                 @endif
+                <td>{{$u->tanggalPembayaran}}</td>
                 <td style="min-width: 100px">
-                    <button class="btn btn-info btn-sm pull-center" @if($next=='1' || $next=='2' ) disabled @endif  onclick="bayarAngsuran('{{$u->idAngsuran}}')"> bayar </button>
+                <button class="btn btn-info btn-sm pull-center" @if($next=='1' || $next=='2' ) disabled @endif  onclick="bayarAngsuran('{{$u->idAngsuran}}')"> bayar </button>
                     @if($u->statusBayar == 'belum')
                     @php $next=2; @endphp
                     @else

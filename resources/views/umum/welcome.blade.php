@@ -59,8 +59,7 @@
                         <i class="fa fa-user"></i>
                     </a>
                     <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
-                        <a href="{{route('logout')}}" class="dropdown-item dropdown-footer">History Transaksi</a>
-                        <a href="{{route('logout')}}" class="dropdown-item dropdown-footer">Cek Angsuran</a>
+                        <a href="{{route('historyTransaksiKreditur')}}" class="dropdown-item dropdown-footer">History Transaksi</a>
                         <hr>
                         <a href="{{route('logout')}}" class="dropdown-item dropdown-footer">Logout</a>
                     </div>

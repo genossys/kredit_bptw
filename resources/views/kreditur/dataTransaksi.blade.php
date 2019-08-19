@@ -16,6 +16,8 @@
                         <th>Angsuran</th>
                         <th>Top</th>
                         <th>Status</th>
+                        <th>Action</th>
+
                     </tr>
                 </thead>
 
@@ -38,16 +40,32 @@
                         @else
                         <td class="text-danger">{{$u->status}}</td>
                         @endif
+                        <td>
+                        <button class="btn btn-warning btn-sm pull-center" data-toggle="modal" data-target="#modalDataAngsuran" onclick="showDataAngsuran('{{$u->noKontrak}}')">Cek Angsuran </button>
+                        </td>
                     </tr>
                     @endforeach
-
                 </tbody>
-
             </table>
         </div>
 
     </div>
 </section>
+
+<!--Srart Modal -->
+<div class="modal fade" id="modalDataAngsuran">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title">Angsuran</h6>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body" id="dataModalAngsuran">
+            </div>
+        </div>
+    </div>
+</div>
+<!-- EndModal -->
 @endsection
 
 
@@ -63,5 +81,23 @@
 
 
 @section('script')
+<script>
+    function showDataAngsuran(noKontrak) {
 
+        $.ajax({
+            type: 'GET',
+            url: '/kreditur/angsuran/showAngsuranKreditur',
+            data: {
+                noKontrak: noKontrak,
+            },
+            success: function(response) {
+
+                $("#dataModalAngsuran").html(response.html);
+            },
+            error: function(response) {
+                alert('gagal \n' + response.responseText);
+            }
+        });
+    }
+</script>
 @endsection

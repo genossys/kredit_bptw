@@ -46,6 +46,11 @@ Route::group(['middleware' => 'auth'], function () {
         Route::group(['prefix' => 'transaksi'], function () {
             Route::get('/historyTransaksi', 'Master\kreditController@historyTransaksi')->name('historyTransaksiKreditur');
         });
+
+        Route::group(['prefix' => 'angsuran'], function () {
+            Route::get('/', 'Master\angsuranController@index')->name('pageangsuran');
+            Route::get('/showAngsuranKreditur', 'Master\angsuranController@showAngsuranKreditur');
+        });
     });
 
     Route::group(['prefix' => 'bank', 'middleware' => 'hakakses:bank'], function () {
@@ -127,9 +132,21 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('/showKredit', 'Master\kreditController@showKredit');
             Route::get('/showEditKredit', 'Master\kreditController@showEditKredit');
             Route::get('/showDetailKredit', 'Master\kreditController@showDetailKredit');
+            Route::get('/laporanKredit', 'Master\kreditController@laporanKredit')->name('adminLaporanKredit');
+            Route::get('/showAdminLaporanKredit', 'Master\kreditController@showAdminLaporanKredit');
             Route::post('/insertKredit', 'Master\kreditController@insertKredit')->name('insertKredit');
             Route::post('/editKredit', 'Master\kreditController@editKredit');
             Route::delete('/deleteData', 'Master\kreditController@deleteData');
+        });
+
+        Route::group(['prefix' => 'angsuran'], function () {
+            Route::get('/laporanangsuran', 'Master\angsuranController@laporanangsuran')->name('adminLaporanAngsuran');
+            Route::get('/showAdminLaporanAngsuran', 'Master\angsuranController@showAdminLaporanAngsuran');
+        });
+
+        Route::group(['prefix' => 'cetak'], function () {
+            Route::get('/adminCetakKredit', 'pdfmaker@adminCetakKredit')->name('adminCetakKredit');
+            Route::get('/adminCetakAngsuran', 'pdfmaker@adminCetakAngsuran')->name('adminCetakAngsuran');
         });
     });
 });
