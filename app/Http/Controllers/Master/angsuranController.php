@@ -35,6 +35,11 @@ class angsuranController extends Controller
         return view('admin.laporan.laporanangsuran');
     }
 
+    public function laporanAngsuranbank()
+    {
+        return view('bank.laporan.laporanangsuran');
+    }
+
     public function showFormRegistrasi()
     {
         $this->middleware('guest');
@@ -121,6 +126,31 @@ class angsuranController extends Controller
     }
 
 
+    public function showBankLaporanAngsuran(Request $request)
+    {
+        $daritanggal = $request->daritanggal;
+        $ketanggal = $request->ketanggal;
+        $bank = bankModel::where('email', auth()->user()->email)->first();
+        $idBank = $bank->id;
+
+        $angsuran = angsuranModel::join('tb_kredit', 'tb_angsuran.noKontrak', 'tb_kredit.noKontrak')
+            ->join('tb_kreditur', 'tb_angsuran.idKreditur', 'tb_kreditur.id')
+            ->join('tb_bank', 'tb_kredit.idBank', 'tb_bank.id')
+            ->whereBetween('tb_angsuran.tanggalPembayaran', [$daritanggal, $ketanggal])
+            ->where('tb_bank.id', $idBank)
+            ->orderby('jatuhTempo', 'asc')
+            ->get();
+        $contoh = $angsuran->first();
+
+        if ($contoh != null) {
+            $returnHTML = view('isidata.tabelAdminLaporanAngsuran')->with('angsuran', $angsuran)->render();
+            return response()->json(array('success' => true, 'html' => $returnHTML));
+        } else {
+            $returnHTML = view('isidata.datakosong')->with('kosong', 'Data Angsuran akan Tampil di sini ')->render();
+            return response()->json(array('success' => true, 'html' => $returnHTML));
+        }
+    }
+
     public function showAdminLaporanAngsuran(Request $request)
     {
         $daritanggal = $request->daritanggal;
@@ -140,6 +170,7 @@ class angsuranController extends Controller
             return response()->json(array('success' => true, 'html' => $returnHTML));
         }
     }
+
     public function showAngsuranKreditur(Request $request)
     {
         $noKontrak = $request->noKontrak;

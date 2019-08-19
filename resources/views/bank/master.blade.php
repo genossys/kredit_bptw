@@ -114,10 +114,17 @@
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="" class="nav-link ">
+                            <li class="nav-item">
+                                    <a href="{{route('bankLaporanKredit')}}" class="nav-link ">
                                         <i class="fa fa-circle-o nav-icon"></i>
-                                        <p>Laporan Data Order</p>
+                                        <p>Laporan Data Kredit</p>
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a href="{{route('bankLaporanAngsuran')}}" class="nav-link ">
+                                        <i class="fa fa-circle-o nav-icon"></i>
+                                        <p>Laporan Data Angsuran</p>
                                     </a>
                                 </li>
 

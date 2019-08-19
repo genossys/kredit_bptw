@@ -64,20 +64,23 @@ Route::group(['middleware' => 'auth'], function () {
             Route::post('/bayarAngsuran', 'Master\angsuranController@bayarAngsuran');
             Route::get('/showKredit', 'Master\angsuranController@showKredit');
             Route::get('/showEditAngsuran', 'Master\angsuranController@showEditAngsuran');
-            Route::post('/simpanAngsuran', 'Master\angsuranController@insert');
-            Route::post('/editAngsuran', 'Master\angsuranController@edit');
-            Route::post('/editPassword', 'Master\angsuranController@editPassword');
-            Route::delete('/deleteData', 'Master\angsuranController@deleteData');
+            Route::get('/laporanangsuranbank', 'Master\angsuranController@laporanangsuranbank')->name('bankLaporanAngsuran');
+            Route::get('/showBankLaporanAngsuran', 'Master\angsuranController@showBankLaporanAngsuran');
         });
 
         Route::group(['prefix' => 'kredit'], function () {
             Route::get('/', 'Master\kreditController@index')->name('pagekreditbank');
+            Route::get('/laporanKreditbank', 'Master\kreditController@laporanKreditbank')->name('bankLaporanKredit');
+            Route::get('/showBankLaporanKredit', 'Master\kreditController@showBankLaporanKredit');
             Route::get('/showKredit', 'Master\kreditController@showKredit');
             Route::get('/showEditKredit', 'Master\kreditController@showEditKredit');
             Route::get('/showDetailKredit', 'Master\kreditController@showDetailKredit');
-            Route::post('/insertKredit', 'Master\kreditController@insertKredit')->name('insertKredit');
-            Route::post('/editKredit', 'Master\kreditController@editKredit');
-            Route::delete('/deleteData', 'Master\kreditController@deleteData');
+        });
+
+
+        Route::group(['prefix' => 'cetak'], function () {
+            Route::get('/bankCetakKredit', 'pdfmaker@bankCetakKredit')->name('bankCetakKredit');
+            Route::get('/bankCetakAngsuran', 'pdfmaker@bankCetakAngsuran')->name('bankCetakAngsuran');
         });
     });
 
