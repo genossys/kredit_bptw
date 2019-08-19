@@ -14,9 +14,9 @@
             <br>
             <br>
 
-            <div class="w-25">
+            <!-- <div class="w-25"> -->
 
-                <div class="form-group">
+            <!-- <div class="form-group">
                     <label>Pilih TOP</label>
                     <select class="form-control" id="cBoxHakAkses">
                         <option value="6">6 bulan</option>
@@ -27,18 +27,33 @@
                         <option value="60">60 bulan</option>
                     </select>
                 </div>
-            </div>
+            </div> -->
 
             @if (auth()->check())
-            <button class="btn btn-primary" id="btnSimpan">Pesan Rumah Sekarang!</button>
+            <button class="btn btn-primary" onclick="showKreditRumah('{{$rumah->idRumah}}')" data-toggle="modal" data-target="#kreditModal">Pesan Rumah Sekarang!</button>
             @else
-            <button class="btn btn-primary" onclick="javascript:alert('Anda Harus Login Dulu!')">Pesan Rumah Sekarang!</button>
+            <button class="btn btn-primary" onclick="logindulu()">Pesan Rumah Sekarang!</button>
             @endif
 
         </div>
     </div>
-
-</div>
 </div>
 
-<script src="{{ asset('/js/tampilan/inputnumber.js')}}"></script>
+<script>
+    function logindulu() {
+        Swal.fire({
+            title: 'Ada Harus Login Sebelum Order Rumah',
+            text: "Apakah anda ingin ke menu login?",
+            type: 'error',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            cancelButtonText: 'Tidak',
+            confirmButtonText: 'Ya'
+        }).then((result) => {
+            if (result.value) {
+                window.location.href = "{{URL::to('login')}}"
+            }
+        })
+    }
+</script>

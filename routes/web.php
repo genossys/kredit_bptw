@@ -19,6 +19,8 @@ Route::get('/', function () {
 Route::get('/produk', 'Master\rumahController@menu')->name('pageproduct');
 Route::get('/produk/showcaseRumah', 'Master\rumahController@showcaseRumah')->name('pageproduct');
 Route::get('/produk/showDetailRumah', 'Master\rumahController@showDetailRumah');
+Route::get('/produk/showKreditRumah', 'Master\rumahController@showKreditRumah');
+Route::get('/pencarianBank', 'Master\bankController@pencarianBank');
 Route::get('/home', 'HomeController@index')->name('home');
 
 
@@ -34,6 +36,46 @@ Auth::routes();
 
 
 Route::group(['middleware' => 'auth'], function () {
+
+    Route::group(['prefix' => 'kreditur', 'middleware' => 'hakakses:kreditur'], function () {
+
+        Route::group(['prefix' => 'kredit'], function () {
+            Route::post('/insertKredit', 'Master\kreditController@insertKredit');
+        });
+
+        Route::group(['prefix' => 'transaksi'], function () {
+            Route::get('/historyTransaksi', 'Master\kreditController@historyTransaksi')->name('historyTransaksiKreditur');
+        });
+    });
+
+    Route::group(['prefix' => 'bank', 'middleware' => 'hakakses:bank'], function () {
+        Route::get('/', function () {
+            return view('/bank/menuawal');
+        })->name('bank');
+
+        Route::group(['prefix' => 'angsuran'], function () {
+            Route::get('/', 'Master\angsuranController@index')->name('pageangsuran');
+            Route::get('/showAngsuran', 'Master\angsuranController@showAngsuran');
+            Route::post('/bayarAngsuran', 'Master\angsuranController@bayarAngsuran');
+            Route::get('/showKredit', 'Master\angsuranController@showKredit');
+            Route::get('/showEditAngsuran', 'Master\angsuranController@showEditAngsuran');
+            Route::post('/simpanAngsuran', 'Master\angsuranController@insert');
+            Route::post('/editAngsuran', 'Master\angsuranController@edit');
+            Route::post('/editPassword', 'Master\angsuranController@editPassword');
+            Route::delete('/deleteData', 'Master\angsuranController@deleteData');
+        });
+
+        Route::group(['prefix' => 'kredit'], function () {
+            Route::get('/', 'Master\kreditController@index')->name('pagekreditbank');
+            Route::get('/showKredit', 'Master\kreditController@showKredit');
+            Route::get('/showEditKredit', 'Master\kreditController@showEditKredit');
+            Route::get('/showDetailKredit', 'Master\kreditController@showDetailKredit');
+            Route::post('/insertKredit', 'Master\kreditController@insertKredit')->name('insertKredit');
+            Route::post('/editKredit', 'Master\kreditController@editKredit');
+            Route::delete('/deleteData', 'Master\kreditController@deleteData');
+        });
+    });
+
 
     Route::group(['prefix' => 'admin', 'middleware' => 'hakakses:admin'], function () {
 
@@ -80,12 +122,14 @@ Route::group(['middleware' => 'auth'], function () {
             Route::delete('/deleteData', 'Master\krediturController@deleteData');
         });
 
-
-
-
-
+        Route::group(['prefix' => 'kredit'], function () {
+            Route::get('/', 'Master\kreditController@index')->name('pagekredit');
+            Route::get('/showKredit', 'Master\kreditController@showKredit');
+            Route::get('/showEditKredit', 'Master\kreditController@showEditKredit');
+            Route::get('/showDetailKredit', 'Master\kreditController@showDetailKredit');
+            Route::post('/insertKredit', 'Master\kreditController@insertKredit')->name('insertKredit');
+            Route::post('/editKredit', 'Master\kreditController@editKredit');
+            Route::delete('/deleteData', 'Master\kreditController@deleteData');
+        });
     });
-
-
 });
-

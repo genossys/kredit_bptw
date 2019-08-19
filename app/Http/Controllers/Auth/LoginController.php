@@ -64,7 +64,7 @@ class LoginController extends Controller
             $hakAkses = User::where('email',$request->input('email'))->first();
             if($hakAkses->hakAkses == 'admin'){
                 return redirect('/admin');
-            }else if($hakAkses->hakAkses == 'pimpinan'){
+            }else if($hakAkses->hakAkses == 'bank'){
                 return redirect('/bank');
             }else{
                 return redirect('/');

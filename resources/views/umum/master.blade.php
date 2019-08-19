@@ -14,8 +14,8 @@
     <link rel="stylesheet" href="{{asset ('adminlte/plugins/font-awesome/css/font-awesome.min.css')}}">
     <link href="{{ asset('/css/bootstrap.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('/css/genosstyle.css') }}" rel="stylesheet" />
-    <link href="{{ asset('/css/animate.css') }}" rel="stylesheet" />
-
+    <link href="{{ asset('/css/sweetalert2.min.css') }}" rel="stylesheet">
+    <script src="{{ asset('/js/sweetalert2.min.js') }}"></script>
 
 </head>
 
@@ -40,12 +40,38 @@
                 </li>
 
                 <li class="nav-item ">
-                    <a class="nav-link ml-5" href="#">Kontak</a>
+                    <a class="nav-link ml-5 mr-5" href="#">Kontak</a>
                 </li>
 
-                <li class="nav-item ">
-                    <a class="nav-link ml-5" href="/login"> Login <i class="fa fa-user"></i></a>
+                @if (auth()->check())
+
+                @if (auth()->user()->hakAkses == 'admin' || auth()->user()->hakAkses == 'pimpinan')
+                <li class="nav-item ml-5">
+                    <a class="nav-link" href="{{route('admin')}}">Dashboard</a>
                 </li>
+                @endif
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link" data-toggle="dropdown" href="#">
+                        {{auth()->user()->nama}}
+                        <i class="fa fa-user"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
+                        <a href="{{route('historyTransaksiKreditur')}}" class="dropdown-item dropdown-footer">History Transaksi</a>
+                        <a href="{{route('logout')}}" class="dropdown-item dropdown-footer">Cek Angsuran</a>
+                        <hr>
+                        <a href="{{route('logout')}}" class="dropdown-item dropdown-footer">Logout</a>
+                    </div>
+                </li>
+                @else
+                <li class="nav-item ml-5">
+                    <a class="nav-link" href="/login">
+                        Login
+                        <i class="fa fa-user"></i>
+                    </a>
+                </li>
+                @endif
+
 
             </ul>
         </div>
@@ -57,10 +83,12 @@
     <!-- JS -->
 
 
-    <script src="{{ asset('js/app.js') }}"></script>
 
-    <script src="{{ asset('/js/jquery.min.js') }}"></script>
+    <!-- jQuery -->
+    <script src="{{ asset ('/adminlte/plugins/jquery/jquery.min.js')}}"></script>
 
+    <!-- Bootstrap 4 -->
+    <script src=" {{asset ('/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
     <script>
         $.ajaxSetup({
             headers: {

@@ -101,6 +101,21 @@ class rumahController extends Controller
         }
     }
 
+    public function showKreditRumah(Request $request)
+    {
+        $idRumah = $request->idRumah;
+        $rumah = rumahModel::where('idRUmah', $idRumah)->first();
+
+
+        if ($rumah != null) {
+            $returnHTML = view('isidata.modalKreditRumah')->with('rumah', $rumah)->render();
+            return response()->json(array('success' => true, 'html' => $returnHTML));
+        } else {
+            $returnHTML = view('isidata.datakosong')->with('kosong', 'Data Rumah akan Tampil di sini ')->render();
+            return response()->json(array('success' => true, 'html' => $returnHTML));
+        }
+    }
+
     public function insertRumah(Request $request)
     {
         $validator = Validator::make(

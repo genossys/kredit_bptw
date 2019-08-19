@@ -54,7 +54,22 @@ class bankController extends Controller
         }
     }
 
+    public function pencarianBank(Request $request)
+    {
+        $cariBank = $request->cariBank;
+        $dataBank = bankModel::where('nama', 'LIKE', "%" . $cariBank . "%")
+            ->orwhere('alamat', 'LIKE', "%" . $cariBank . "%")
+            ->get();
+        $contoh = $dataBank->first();
 
+        if ($contoh != null) {
+            $returnHTML = view('isidata.pencarianbank')->with('dataBank', $dataBank)->render();
+            return response()->json(array('success' => true, 'html' => $returnHTML));
+        } else {
+            $returnHTML = view('isidata.datakosong')->with('kosong', 'Bank yang anda cari tidak tersedia')->render();
+            return response()->json(array('success' => true, 'html' => $returnHTML));
+        }
+    }
     public function insertBank(Request $request)
     {
         $bank = new bankModel();

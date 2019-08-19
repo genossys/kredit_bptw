@@ -40,14 +40,27 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
 
-                <form method="post" id="editform">
-                    <div class="modal-body" id="modalDetailRumah">
+                <div class="modal-body" id="modalDetailRumah">
 
-                    </div>
-                </form>
+                </div>
             </div>
         </div>
 </section>
+
+<!-- Modal Detail Produk -->
+<section>
+    <div class="modal fade" id="kreditModal">
+        <div class="modal-dialog modal-lg ">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title">Simulasi Kredit</h6>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body" id="modalKreditRumah">
+
+                </div>
+            </div>
+        </div>
 </section>
 @endsection
 
@@ -102,6 +115,39 @@
             },
             error: function(response) {
                 alert('gagal \n' + response.responseText);
+            }
+        });
+    }
+
+    function showKreditRumah(idRumah) {
+
+        $.ajax({
+            type: 'GET',
+            url: '/produk/showKreditRumah',
+            data: {
+                idRumah: idRumah,
+            },
+            success: function(response) {
+
+                $("#modalKreditRumah").html(response.html);
+            },
+            error: function(response) {
+                alert('gagal \n' + response.responseText);
+            }
+        });
+    }
+
+    function PencarianBank() {
+
+        var cariBank = $("#cariBank").val();
+        $.ajax({
+            type: 'GET',
+            url: '/pencarianBank',
+            data: {
+                cariBank: cariBank
+            },
+            success: function(data) {
+                $("#pencarianBank").html(data.html);
             }
         });
     }

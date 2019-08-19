@@ -85,44 +85,6 @@
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
-                        <li class="nav-item has-treeview ">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fa fa-database"></i>
-                                <p>
-                                    Master
-                                    <i class="right fa fa-angle-left"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{{route ('pagerumah')}}" class="nav-link ">
-                                        <i class="fa fa-circle-o nav-icon"></i>
-                                        <p>Data Rumah</p>
-                                    </a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a href="{{route ('pagekreditur')}}" class="nav-link ">
-                                        <i class="fa fa-circle-o nav-icon"></i>
-                                        <p>Data Kreditur</p>
-                                    </a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a href="{{route ('pagebank')}}" class="nav-link ">
-                                        <i class="fa fa-circle-o nav-icon"></i>
-                                        <p>Data Bank</p>
-                                    </a>
-                                </li>
-
-                                <li class="nav-item ">
-                                    <a href="{{route ('pageuser')}}" class="nav-link">
-                                        <i class="fa fa-circle-o nav-icon"></i>
-                                        <p>Data User</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
 
                         <li class="nav-item has-treeview ">
                             <a href="#" class="nav-link">
@@ -134,9 +96,9 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{route('pagekredit')}}" class="nav-link ">
+                                    <a href="{{route('pageangsuran')}}" class="nav-link ">
                                         <i class="fa fa-circle-o nav-icon"></i>
-                                        <p>Pesanan Kredit</p>
+                                        <p>Angsuran</p>
                                     </a>
                                 </li>
 
