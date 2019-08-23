@@ -13,7 +13,7 @@ Form Login
             Swal.fire({
                 type: 'error',
                 title: '{{session('
-                gagal ')}}!',
+                gagal ')}} Email / Password tidak terdaftar',
             })
         </script>
         @endif
@@ -29,10 +29,12 @@ Form Login
                 <form method="post" action="/postlogin">
                     {{csrf_field()}}
                     <div class="form-group has-feedback ">
-                        <input type="text" class="form-control" name="email" placeholder="username atau email">
+                        <label>Email</label>
+                        <input type="text" class="form-control" name="email" placeholder="email">
                         <span class="glyphicon glyphicon-user form-control-feedback"></span>
                     </div>
                     <div class="form-group has-feedback">
+                        <label>Password</label>
                         <input type="password" class="form-control" name="password" placeholder="Password">
                         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                     </div>

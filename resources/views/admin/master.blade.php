@@ -140,6 +140,13 @@
                                     </a>
                                 </li>
 
+                                <li class="nav-item">
+                                    <a href="{{route('pageangsuran')}}" class="nav-link ">
+                                        <i class="fa fa-circle-o nav-icon"></i>
+                                        <p>Angsuran</p>
+                                    </a>
+                                </li>
+
                             </ul>
                         </li>
 

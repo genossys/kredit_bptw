@@ -34,14 +34,19 @@
                 @php $next=1; @endphp
                 @endif
                 <td>{{$u->tanggalPembayaran}}</td>
-                <td style="min-width: 100px">
-                <button class="btn btn-info btn-sm pull-center" @if($next=='1' || $next=='2' ) disabled @endif  onclick="bayarAngsuran('{{$u->idAngsuran}}')"> bayar </button>
+                <td style="min-width: 130px">
+                    <button class="btn btn-info btn-sm pull-center" @if($next=='1' || $next=='2' || $u->jatuhTempo > batasPembayaran() ) disabled @endif onclick="bayarAngsuran('{{$u->idAngsuran}}')"> bayar </button>
                     @if($u->statusBayar == 'belum')
                     @php $next=2; @endphp
                     @else
                     @php $next=1; @endphp
                     @endif
+
+                    <a class="btn btn-warning btn-sm pull-center" target="_blank" href="/admin/cetak/adminCetakNotaAngsuran/{{$u->idAngsuran}}" @if($u->statusBayar == 'belum') hidden @endif > cetak </button>
+
                 </td>
+
+
             </tr>
             @endforeach
 

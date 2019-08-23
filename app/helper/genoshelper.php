@@ -1,17 +1,23 @@
 <?php
 
-function formatRupiah($angka){
-    return "Rp ".number_format($angka,0,',','.');
+use App\Master\angsuranModel;
+use App\Master\kreditModel;
+use App\Master\krediturModel;
+use Carbon\Carbon;
+
+function formatRupiah($angka)
+{
+    return "Rp " . number_format($angka, 0, ',', '.');
 }
 
-function formatDate($tanggal){
-    return date("Y-m-d", strtotime($tanggal) );
-
+function formatDate($tanggal)
+{
+    return date("Y-m-d", strtotime($tanggal));
 }
 
-function formatDateToSurat($tanggal){
-    return date("d-M-Y", strtotime($tanggal) );
-
+function formatDateToSurat($tanggal)
+{
+    return date("d-M-Y", strtotime($tanggal));
 }
 
 function formatuang($angka)
@@ -19,6 +25,25 @@ function formatuang($angka)
     return  number_format($angka, 0, '', '.');
 }
 
+function batasPembayaran()
+{
+    $tgl = Carbon::now();
+    $tgl2 = $tgl->addDays(30);
+    $tgl2 = date('Y-m-d', strtotime($tgl2));
+
+    return $tgl2;
+}
+
+function cekAngsuran($email)
+{
+    $kredit = krediturModel::where('email',$email)->first();
+    $kreditur = $kredit->id;
+
+    $angsuran = angsuranModel::where('idKreditur',$kreditur)
+    ->count();
+
+    return $angsuran;
+}
 // function nomorPO_otomatis(){
 //     $sekarang = Carbon\Carbon::now()->format('Y-m-d');
 //     $tahun = substr($sekarang,0,4);

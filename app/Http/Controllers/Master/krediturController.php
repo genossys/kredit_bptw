@@ -128,7 +128,7 @@ class krediturController extends Controller
     public function showEditKreditur(Request $request)
     {
         $caridata = $request->id;
-        $kreditur = krediturModel::where('id', 'LIKE', '%' . $caridata . '%')
+        $kreditur = krediturModel::where('id', $caridata)
             ->get();
 
         $contoh = $kreditur->first();
@@ -178,12 +178,13 @@ class krediturController extends Controller
                 $new_name = '';
             }
         }
-        $kreditur = krediturModel::find($request->idKreditur);
-        $kreditur->idKreditur = $request->idKreditur;
-        $kreditur->namaKreditur = $request->namaKreditur;
-        $kreditur->hargaJual = $request->hargaJual;
-        $kreditur->lokasi = $request->lokasi;
-        $kreditur->deskripsi = $request->deskripsi;
+        $kreditur = krediturModel::find($request->id);
+        $kreditur->nik = $request->nik;
+        $kreditur->nama = $request->nama;
+        $kreditur->email = $request->email;
+        $kreditur->alamat = $request->alamat;
+        $kreditur->tgl_lahir = $request->tgl_lahir;
+        $kreditur->nohp = $request->nohp;
         if ($request->urlFoto != '') {
             $kreditur->urlFoto = $new_name;
         }
@@ -194,5 +195,39 @@ class krediturController extends Controller
     {
         $kreditur = krediturModel::find($request->id);
         $kreditur->delete();
+    }
+
+    public function insertKreditur(Request $r)
+    {
+        $validator = Validator::make(
+            $r->all(),
+            [
+                'urlFoto' => 'required|file|max:2048'
+            ]
+        );
+
+        if ($validator->passes()) {
+            $urlFoto = $r->file('urlFoto');
+            $new_name = $r->nik . rand() . '.' . $urlFoto->getClientOriginalExtension();
+            $urlFoto->move(public_path('foto'), $new_name);
+        } else {
+            $new_name = '';
+        }
+
+        # code...
+        try {
+            $kreditur = new krediturModel();
+            $kreditur->nik = $r->nik;
+            $kreditur->email = $r->email;
+            $kreditur->nama = $r->nama;
+            $kreditur->password = Hash::make($r->password);
+            $kreditur->nohp = $r->nohp;
+            $kreditur->alamat = $r->alamat;
+            $kreditur->tgl_lahir = $r->tgl_lahir;
+            $kreditur->urlFoto = $new_name;
+            $kreditur->save();
+        } catch (\Throwable $th) {
+            return 'Error Program ' . $th;
+        }
     }
 }

@@ -24,12 +24,8 @@
 
                 @if($u->statusBayar == 'belum')
                 <td class='text-danger'>{{$u->statusBayar}}</td>
-                @if($next == '1')
-                @php $next=0; @endphp
-                @endif
                 @else
                 <td class='text-success'>{{$u->statusBayar}}</td>
-                @php $next=1; @endphp
                 @endif
                 <td>{{$u->tanggalPembayaran}}</td>
 

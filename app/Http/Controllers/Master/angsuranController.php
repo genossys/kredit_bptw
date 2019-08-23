@@ -66,7 +66,6 @@ class angsuranController extends Controller
     public function showKredit(Request $request)
     {
         $bank = bankModel::where('email', auth()->user()->email)->first();
-        $idBank = $bank->id;
 
         $caridata = $request->caridata;
         $kredit = kreditModel::select(
@@ -84,7 +83,6 @@ class angsuranController extends Controller
             ->join('tb_bank', 'tb_kredit.idBank', 'tb_bank.id')
             ->join('tb_rumah', 'tb_kredit.idRumah', 'tb_rumah.idRumah')
             ->join('tb_kreditur', 'tb_kredit.idKreditur', 'tb_kreditur.id')
-            ->where('tb_bank.id', $idBank)
             ->where('tb_kredit.status', 'diterima')
             ->where(function ($q) use ($caridata) {
                 $q->where('tb_bank.nama', 'LIKE', '%' . $caridata . '%')

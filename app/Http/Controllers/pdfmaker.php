@@ -172,4 +172,28 @@ class pdfmaker extends Controller
             return view('admin.laporan.pdfKosong')->with('kosong', 'Data Transaksi Kosong/ Tidak ada');
         }
     }
+
+    public function CetakNotaAngsuran($idAngsuran)
+    {
+
+        $pdf = \App::make('dompdf.wrapper');
+        $pdf->loadHTML($this->dataNotaAngsuran($idAngsuran));
+        return $pdf->stream();
+    }
+
+    public function dataNotaAngsuran( $idAngsuran)
+    {
+        $angsuran = angsuranModel::join('tb_kredit', 'tb_kredit.noKontrak', 'tb_angsuran.noKontrak')
+            ->join('tb_kreditur', 'tb_angsuran.idKreditur', 'tb_kreditur.id')
+            ->where('idAngsuran', $idAngsuran)
+            ->first();
+
+        if ($idAngsuran != null) {
+            return view('admin.laporan.pdfNotaAngsuran')->with([
+                'angsuran' => $angsuran
+            ]);
+        } else {
+            return view('admin.laporan.pdfKosong')->with('kosong', 'Data Transaksi Kosong/ Tidak ada');
+        }
+    }
 }

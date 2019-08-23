@@ -58,15 +58,15 @@ Route::group(['middleware' => 'auth'], function () {
             return view('/bank/menuawal');
         })->name('bank');
 
-        Route::group(['prefix' => 'angsuran'], function () {
-            Route::get('/', 'Master\angsuranController@index')->name('pageangsuran');
-            Route::get('/showAngsuran', 'Master\angsuranController@showAngsuran');
-            Route::post('/bayarAngsuran', 'Master\angsuranController@bayarAngsuran');
-            Route::get('/showKredit', 'Master\angsuranController@showKredit');
-            Route::get('/showEditAngsuran', 'Master\angsuranController@showEditAngsuran');
+        // Route::group(['prefix' => 'angsuran'], function () {
+        //     Route::get('/', 'Master\angsuranController@index')->name('pageangsuran');
+        //     Route::get('/showAngsuran', 'Master\angsuranController@showAngsuran');
+        //     Route::post('/bayarAngsuran', 'Master\angsuranController@bayarAngsuran');
+        //     Route::get('/showKredit', 'Master\angsuranController@showKredit');
+        //     Route::get('/showEditAngsuran', 'Master\angsuranController@showEditAngsuran');
             Route::get('/laporanangsuranbank', 'Master\angsuranController@laporanangsuranbank')->name('bankLaporanAngsuran');
-            Route::get('/showBankLaporanAngsuran', 'Master\angsuranController@showBankLaporanAngsuran');
-        });
+        //     Route::get('/showBankLaporanAngsuran', 'Master\angsuranController@showBankLaporanAngsuran');
+        // });
 
         Route::group(['prefix' => 'kredit'], function () {
             Route::get('/', 'Master\kreditController@index')->name('pagekreditbank');
@@ -145,11 +145,17 @@ Route::group(['middleware' => 'auth'], function () {
         Route::group(['prefix' => 'angsuran'], function () {
             Route::get('/laporanangsuran', 'Master\angsuranController@laporanangsuran')->name('adminLaporanAngsuran');
             Route::get('/showAdminLaporanAngsuran', 'Master\angsuranController@showAdminLaporanAngsuran');
+            Route::get('/', 'Master\angsuranController@index')->name('pageangsuran');
+            Route::get('/showAngsuran', 'Master\angsuranController@showAngsuran');
+            Route::post('/bayarAngsuran', 'Master\angsuranController@bayarAngsuran');
+            Route::get('/showKredit', 'Master\angsuranController@showKredit');
+            Route::get('/showEditAngsuran', 'Master\angsuranController@showEditAngsuran');
         });
 
         Route::group(['prefix' => 'cetak'], function () {
             Route::get('/adminCetakKredit', 'pdfmaker@adminCetakKredit')->name('adminCetakKredit');
             Route::get('/adminCetakAngsuran', 'pdfmaker@adminCetakAngsuran')->name('adminCetakAngsuran');
+            Route::get('/adminCetakNotaAngsuran/{idAngsuran}', 'pdfmaker@CetakNotaAngsuran')->name('adminCetakNotaAngsuran');
         });
     });
 });

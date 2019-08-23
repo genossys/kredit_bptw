@@ -32,5 +32,8 @@
     function pilihBank(idBank, namaBank) {
         $('#idBank').val(idBank);
         $('#namaBank').val(namaBank);
+        $('#bankDanger').attr("hidden",true);
     }
+
+
 </script>

@@ -39,9 +39,9 @@
                     <a class="nav-link ml-5" href="/produk">Perumahan</a>
                 </li>
 
-                <li class="nav-item ">
+                <!-- <li class="nav-item ">
                     <a class="nav-link ml-5 mr-5" href="#">Kontak</a>
-                </li>
+                </li> -->
 
                 @if (auth()->check())
 

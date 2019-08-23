@@ -1,4 +1,4 @@
-@extends('bank.master')
+@extends('admin.master')
 
 @section('judul')
 Data Angsuran
@@ -48,7 +48,6 @@ Data Angsuran
 
 @section('script')
 <script src="{{ asset('/js/tampilan/fileinput.js') }}"></script>
-<script src="{{ asset('js/handlebars.js') }}"></script>
 
 <script>
     function showData() {
@@ -56,7 +55,7 @@ Data Angsuran
 
         $.ajax({
             type: 'GET',
-            url: '/bank/angsuran/showKredit',
+            url: '/admin/angsuran/showKredit',
             data: {
                 caridata: caridata,
             },
@@ -75,7 +74,7 @@ Data Angsuran
 
         $.ajax({
             type: 'GET',
-            url: '/bank/angsuran/showAngsuran',
+            url: '/admin/angsuran/showAngsuran',
             data: {
                 noKontrak: noKontrak,
             },
@@ -94,7 +93,7 @@ Data Angsuran
 
         $.ajax({
             type: 'GET',
-            url: '/bank/angsuran/showAngsuran',
+            url: '/admin/angsuran/showAngsuran',
             data: {
                 id: idAngsuran,
             },
@@ -112,7 +111,7 @@ Data Angsuran
     function bayarAngsuran(idAngsuran) {
         Swal.fire({
             title: 'Anda yakin?',
-            text: "data "+idAngsuran+" akan di bayar!",
+            text: "angsuran akan di bayar!",
             type: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -122,7 +121,7 @@ Data Angsuran
             if (result.value) {
                 $.ajax({
                     type: 'POST',
-                    url: '/bank/angsuran/bayarAngsuran',
+                    url: '/admin/angsuran/bayarAngsuran',
                     data: {
                         idAngsuran: idAngsuran,
                     },
@@ -134,6 +133,8 @@ Data Angsuran
                             'success'
                         )
                         $('#modalDataAngsuran').modal('toggle');
+                        window.location.replace("/admin/cetak/adminCetakNotaAngsuran/"+idAngsuran);
+
                     },
                     error: function(response) {
                         alert('gagal \n' + response.responseText);

@@ -23,7 +23,7 @@
                 <td>{{$u->tgl_lahir}}</td>
                 <td>{{$u->nohp}}</td>
                 <td style="min-width: 100px">
-                    <button class="btn btn-info btn-sm pull-center" data-toggle="modal" data-target="#modalEditKreditur" onclick="showModalDetail('{{$u->id}}')"> <i class="fa fa-address-book" aria-hidden="true"></i></button>
+                    <button class="btn btn-info btn-sm pull-center" data-toggle="modal" data-target="#modalEditKreditur" onclick="showModalEdit('{{$u->id}}')"> <i class="fa fa-address-book" aria-hidden="true"></i></button>
                     <button class="btn btn-warning btn-sm pull-center" data-toggle="modal" data-target="#modalEditKreditur" onclick="showModalEdit('{{$u->id}}')"> <i class="fa fa-edit" aria-hidden="true"></i></button>
                     <button class="btn btn-danger btn-sm pull-center" onclick="deleteData('{{$u->id}}')"> <i class="fa fa-close" aria-hidden="true"></i></button>
                 </td>

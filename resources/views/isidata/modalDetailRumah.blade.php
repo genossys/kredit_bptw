@@ -30,7 +30,12 @@
             </div> -->
 
             @if (auth()->check())
+            @if(cekAngsuran(auth()->user()->email) > 0)
+            <button class="btn btn-primary" onclick="pembayaranBelumSelesai('{{cekAngsuran(auth()->user()->email)}}')">Pesan Rumah Sekarang!</button>
+            @else
             <button class="btn btn-primary" onclick="showKreditRumah('{{$rumah->idRumah}}')" data-toggle="modal" data-target="#kreditModal">Pesan Rumah Sekarang!</button>
+            @endif
+
             @else
             <button class="btn btn-primary" onclick="logindulu()">Pesan Rumah Sekarang!</button>
             @endif
@@ -54,6 +59,17 @@
             if (result.value) {
                 window.location.href = "{{URL::to('login')}}"
             }
+        })
+    }
+
+    function pembayaranBelumSelesai(jumlah) {
+        Swal.fire({
+            title: 'Maaf, Pembayaran anda masih kurang ' + jumlah + ' angsuran',
+            text: "Jika ingin melakukan transaksi mohon melunasi transaksi yang sebelumnya",
+            type: 'error',
+            showCancelButton: false,
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Ya'
         })
     }
 </script>

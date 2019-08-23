@@ -1,4 +1,5 @@
 <div>
+    <input type="text" value="{{$rumah->hargaJual * 20 / 100}}" id="minBayar" hidden>
     <input id="idRumah" name="idRUmah" hidden value="{{$rumah->idRumah}}">
     <h4>{{$rumah->namaRumah}}</h4>
     <h3>Harga: {{formatRUpiah($rumah->hargaJual)}}</h3>
@@ -7,8 +8,8 @@
     <div class="row">
         <div class="col-md-8">
             <div class="form-group">
-                <label>DP (*min 20%)</label>
-                <input type="numer" class="form-control" name="dp" id="dp" value="{{$rumah->hargaJual * 20 / 100}}" onkeyup="hitungAnsuran()">
+                <label>DP (*min 20%)</label><small class="text-danger" id="dpDanger">&nbsp; *DP harus lebih dari 20% dari Harga Rumah</small>
+                <input type="number" class="form-control" name="dp" id="dp" value="{{$rumah->hargaJual * 20 / 100}}" onkeyup="hitungAnsuran()">
             </div>
         </div>
     </div>
@@ -45,7 +46,7 @@
     <div class="row">
         <div class="col-md-8">
             <div class="form-group">
-                <label>Bank</label>
+                <label>Bank</label><small class="text-danger" id="bankDanger">&nbsp; *anda harus memilih bank </small>
                 <div class="input-group">
                     <input type="text" class="form-control float-left" name="namaBank" id="namaBank" onclick="PencarianBank()" readonly>
                     <input type="text" class="form-control float-left" name="idBank" id="idBank" hidden>
@@ -61,7 +62,7 @@
 
     <div class="row">
         <div class="col-md-4">
-            <button class="btn btn-lg btn-success form-control" onclick="inputKredit()"> Proses </button>
+            <button id="btnProses" class="btn btn-lg btn-success form-control" onclick="inputKredit()"> Proses </button>
         </div>
     </div>
 
@@ -87,7 +88,7 @@
                         </span>
                     </div>
                 </div>
-                <div id="pencarianBank">
+                <div  id="pencarianBank">
 
                 </div>
             </div>
@@ -104,6 +105,7 @@
         var intAngsuran = parseInt(angsuran);
         $("#angsuran").val(intAngsuran);
         $("#angsuran1").val(intAngsuran);
+        setDpDanger()
     }
 
     function inputKredit() {
@@ -139,7 +141,24 @@
         });
     }
 
+    function setDpDanger() {
+        var minBayar = $('#minBayar').val();
+        var dp = $('#dp').val();
+        if (minBayar > dp) {
+            $('#dpDanger').removeAttr("hidden",false);
+            $('#btnProses').attr("disabled",true);
+        } else {
+            $('#dpDanger').attr("hidden",true);
+            $('#btnProses').removeAttr("disabled",false);
+
+        }
+    }
+
+
+
     $(document).ready(function() {
         hitungAnsuran();
+        $('#dpDanger').attr("hidden",true);
+        $('#btnProses').removeAttr("disabled",true);
     });
 </script>

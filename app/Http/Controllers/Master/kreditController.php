@@ -79,7 +79,7 @@ class kreditController extends Controller
 
         try {
             $kredit = new kreditModel();
-            $kredit->noKontrak = "1234";
+            $kredit->noKontrak = date('Ymdhis');
             $kredit->idKreditur = $kreditur->id;
             $kredit->idRumah = $r->idRumah;
             $kredit->idBank = $r->idBank;
