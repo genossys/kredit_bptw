@@ -27,7 +27,7 @@ Data Angsuran
 
 <!--Srart Modal -->
 <div class="modal fade" id="modalDataAngsuran">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-lg" >
         <div class="modal-content">
             <div class="modal-header">
                 <h6 class="modal-title">Ubah Status Angsuran</h6>

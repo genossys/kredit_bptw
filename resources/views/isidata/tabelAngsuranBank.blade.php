@@ -3,12 +3,12 @@
         <thead>
             <tr>
                 <th>#</th>
-                <th>noKontrak</th>
                 <th>namaKreditur</th>
                 <th>angsuran</th>
                 <th>Jatuh Tempo</th>
                 <th>status</th>
                 <th>Tanggal</th>
+                <th>Nama Petugas</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -19,7 +19,6 @@
             @foreach($angsuran as $u)
             <tr>
                 <td>{{$i++}}</td>
-                <td>{{$u->noKontrak}}</td>
                 <td>{{$u->nama}}</td>
                 <td>{{$u->angsuran}}</td>
                 <td>{{$u->jatuhTempo}}</td>
@@ -34,6 +33,7 @@
                 @php $next=1; @endphp
                 @endif
                 <td>{{$u->tanggalPembayaran}}</td>
+                <td>{{$u->namaPetugas}}</td>
                 <td style="min-width: 130px">
                     <button class="btn btn-info btn-sm pull-center" @if($next=='1' || $next=='2' || $u->jatuhTempo > batasPembayaran() ) disabled @endif onclick="bayarAngsuran('{{$u->idAngsuran}}')"> bayar </button>
                     @if($u->statusBayar == 'belum')

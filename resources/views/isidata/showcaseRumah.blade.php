@@ -9,7 +9,11 @@
             </div>
 
             <div class="text-right">
+                @if($r->statusJual == 'belum')
                 <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#myModal" onclick="showModalDetail('{{$r->idRumah}}')">Detail</button>
+                @else
+                <button class="btn btn-sm btn-danger" disabled >Terjual</button>
+                @endif
             </div>
 
 

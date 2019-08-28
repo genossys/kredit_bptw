@@ -48,6 +48,12 @@
             </tr>
 
             <tr>
+                <td>Di terima oleh</td>
+                <td>:&nbsp;</td>
+                <td> {{$angsuran->namaPetugas}}</td>
+            </tr>
+
+            <tr>
                 <td>Sejumlah Uang</td>
                 <td>:&nbsp;</td>
                 <td style="font-weight: 900"> {{formatRupiah($angsuran->angsuran)}}</td>

@@ -45,6 +45,24 @@ Data Kredit
 </div>
 <!-- EndModal -->
 
+
+<!--Srart Modal -->
+<div class="modal fade" id="modalAlasan">
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title">Alasan Penolakan</h6>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body" id="dataModalAlasan">
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- EndModal -->
+
 @endsection
 
 @section('css')
@@ -109,6 +127,24 @@ Data Kredit
             success: function(response) {
 
                 $("#dataModalEdit").html(response.html);
+            },
+            error: function(response) {
+                alert('gagal \n' + response.responseText);
+            }
+        });
+    }
+
+    function showModalAlasan(idKredit) {
+
+        $.ajax({
+            type: 'GET',
+            url: '/showAlasan',
+            data: {
+                id: idKredit,
+            },
+            success: function(response) {
+
+                $("#dataModalAlasan").html(response.html);
             },
             error: function(response) {
                 alert('gagal \n' + response.responseText);

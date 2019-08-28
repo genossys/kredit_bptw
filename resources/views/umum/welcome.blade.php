@@ -90,7 +90,7 @@
                     cek angsuran kredit rumah secara online
                 </p>
 
-                <button class="btn btn-lg anBtn btn-depan">Lihat Produk</button>
+                <a href="/produk" class="btn btn-lg anBtn btn-depan">Lihat Produk</a>
             </div>
         </div>
     </section>

@@ -40,7 +40,10 @@
                 @endif
                 <td style="min-width: 100px">
 
-                    <button class="btn btn-warning btn-sm pull-center" @if($u->status == 'diterima') disabled @endif data-toggle="modal" data-target="#modalEditKredit" onclick="showModalEdit('{{$u->id}}')"> <i class="fa fa-edit" aria-hidden="true"></i></button>
+                    <button class="btn btn-warning btn-sm pull-center" @if($u->status == 'diterima' || $u->status == 'ditolak') disabled @endif data-toggle="modal" data-target="#modalEditKredit" onclick="showModalEdit('{{$u->id}}')"> <i class="fa fa-edit" aria-hidden="true"></i></button>
+                    @if($u->status == 'ditolak')
+                    <button class="btn btn-danger btn-sm pull-center" data-toggle="modal" data-target="#modalAlasan" onclick="showModalAlasan('{{$u->id}}')"> <i class="fa fa-bell" aria-hidden="true"></i></button>
+                    @endif
                 </td>
             </tr>
             @endforeach

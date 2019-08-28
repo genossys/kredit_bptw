@@ -34,6 +34,8 @@ Route::get('/registermember', 'Master\krediturController@showFormRegistrasi');
 Route::post('/postRegister', 'Master\krediturController@register')->name('registermember');
 Auth::routes();
 
+Route::get('/showAlasan', 'Master\kreditController@showAlasan');
+
 
 Route::group(['middleware' => 'auth'], function () {
 

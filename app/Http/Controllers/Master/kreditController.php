@@ -8,6 +8,7 @@ use App\Master\angsuranModel;
 use App\Master\bankModel;
 use App\Master\kreditModel;
 use App\Master\krediturModel;
+use App\Master\rumahModel;
 use DateTimeImmutable;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
@@ -89,6 +90,8 @@ class kreditController extends Controller
             $kredit->top = $r->top;
             $kredit->status = "proses";
             $kredit->save();
+
+
         } catch (\Throwable $th) {
             return 'Error Program ' . $th;
         }
@@ -228,6 +231,25 @@ class kreditController extends Controller
         }
     }
 
+    public function showAlasan(Request $request)
+    {
+        $caridata = $request->id;
+        $kredit = kreditModel::where('id', $caridata)
+            ->get();
+
+        $contoh = $kredit->first();
+
+        if ($contoh != null) {
+            $returnHTML = view('isidata.modalAlasan')->with('kredit', $contoh)->render();
+            return response()->json(array('success' => true, 'html' => $returnHTML));
+        } else {
+            $returnHTML = view('isidata.datakosong')->with('kosong', 'Data Kredit akan Tampil di sini ')->render();
+            return response()->json(array('success' => true, 'html' => $returnHTML));
+        }
+    }
+
+
+
     public function showDetailKredit(Request $request)
     {
         $caridata = $request->id;
@@ -251,12 +273,17 @@ class kreditController extends Controller
 
         $kredit = kreditModel::find($request->id);
         $kredit->status = $request->status;
+        $kredit->alasanPenolakan = $request->alasanPenolakan;
         if ($kredit->status == 'diterima') {
             $kredit2 = kreditModel::where('noKontrak', $request->noKontrak)
                 ->first();
 
             $kaliPertemuan = $kredit2->top;
             $tanggal = new DateTimeImmutable(date('Y-m-d'));
+
+            $rumahTerjual = rumahModel::find($kredit2->idRumah);
+            $rumahTerjual->statusJual = 'terjual';
+            $rumahTerjual->save();
 
             $i = 0;
             while ($kaliPertemuan > $i) {

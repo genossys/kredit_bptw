@@ -195,6 +195,7 @@ class angsuranController extends Controller
             $angsuran = angsuranModel::find($request->idAngsuran);
             $angsuran->statusBayar = 'sudah';
             $angsuran->tanggalPembayaran = date('Y-m-d');
+            $angsuran->namaPetugas = auth()->user()->nama;
             $angsuran->save();
         } catch (\Throwable $th) {
             return 'Error Program ' . $th;
